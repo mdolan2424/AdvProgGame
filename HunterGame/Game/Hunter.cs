@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -12,14 +13,31 @@ namespace HunterGame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        GameController controller;
 
-        //establish GameController
-        GameController controller = new GameController();
+        KeyboardState currentKeyboardState, oldKeyboardState;
+        MouseState currentMouseState, oldMouseState;
+
+        //mouse position and sprite
+        Vector2 cursor;
+        Texture2D crosshair;
+
+        //pause
+        bool paused = false;
+
 
         public Hunter()
         {
+            //sets up window and Game
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            graphics.IsFullScreen = false;
+            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferWidth = 1280;
+
+            
+           
+
         }
 
         /// <summary>
@@ -30,8 +48,24 @@ namespace HunterGame
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
 
+            //Handles game logic separate from Rendering
+            controller = new GameController();
+
+
+            // TODO: Add your initialization logic here
+            currentKeyboardState = new KeyboardState();
+            currentMouseState = new MouseState();
+
+
+            //Handles game logic separate from GameLoop
+            controller = new GameController();
+
+            //initialize cursor to middle of screen
+            cursor = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2, graphics.GraphicsDevice.Viewport.Height / 2);
+            
+
+            //set up player
             base.Initialize();
         }
 
@@ -43,8 +77,8 @@ namespace HunterGame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            
+            crosshair = Content.Load<Texture2D>("Graphics\\circle-03");
         }
 
         /// <summary>
@@ -63,10 +97,60 @@ namespace HunterGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
+            
             // TODO: Add your update logic here
+
+            oldKeyboardState = currentKeyboardState;
+            oldMouseState = currentMouseState;
+
+            //mouse
+            oldMouseState = currentMouseState;
+            currentMouseState = Mouse.GetState();
+
+            //update mouse sprite position
+            cursor.X = currentMouseState.X;
+            cursor.Y = currentMouseState.Y;
+
+            //check for a paused key press.
+            if (!paused)
+            {
+                if (currentKeyboardState.IsKeyDown(Keys.Escape))
+                {
+                    paused = true;
+                    Exit();
+                }
+                
+                
+            }
+
+            else
+            {
+                paused = false;
+            }
+
+            //run game as normal
+            if (currentKeyboardState.IsKeyDown(Keys.Up))
+            {
+
+            }
+            //run game as normal
+            if (currentKeyboardState.IsKeyDown(Keys.Right))
+            {
+
+            }
+            //run game as normal
+            if (currentKeyboardState.IsKeyDown(Keys.Down))
+            {
+
+            }
+            //run game as normal
+            if (currentKeyboardState.IsKeyDown(Keys.Left))
+            {
+
+            }
+
+
+
 
             base.Update(gameTime);
         }
@@ -79,9 +163,37 @@ namespace HunterGame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
-
+            spriteBatch.Begin();
+            spriteBatch.Draw(crosshair, cursor);
+            spriteBatch.End();
+            
             base.Draw(gameTime);
+        }
+
+        private void detectInput()
+        {
+            
+        }
+
+        private void Pause(GameTime gameTime)
+        {
+
+        }
+
+
+        //performs actions when game is activated
+
+        protected override void OnActivated(object sender, EventArgs args)
+        {
+
+            this.Window.Title = "Hunter";
+            base.OnActivated(sender, args);
+        }
+
+        protected override void OnDeactivated(object sender, EventArgs args)
+        {
+            this.Window.Title = "Paused";
+            base.OnDeactivated(sender, args);
         }
     }
 }

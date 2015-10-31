@@ -14,5 +14,12 @@ namespace HunterGame
         }
 
 
+        public void PauseGame()
+        {
+
+
+        }
+
+
     }
 }

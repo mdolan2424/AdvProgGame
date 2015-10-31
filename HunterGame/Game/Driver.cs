@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HunterGame.src
+namespace HunterGame
 {
 #if WINDOWS || LINUX
     /// <summary>
