@@ -38,12 +38,20 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Game\DifficultyContext.cs" />
+    <Compile Include="Game\DifficultyState.cs" />
+    <Compile Include="Game\EasyState.cs" />
     <Compile Include="Game\GameController.cs" />
     <Compile Include="Game\Hunter.cs" />
     <Compile Include="Game\Player\Player.cs" />
     <Compile Include="Game\Driver.cs" />
     <Compile Include="Game\InputManager.cs" />
+    <Compile Include="Game\HardState.cs" />
+    <Compile Include="Game\MediumState.cs" />
+    <Compile Include="Game\Observable.cs" />
+    <Compile Include="Game\Observer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Game\Score.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
