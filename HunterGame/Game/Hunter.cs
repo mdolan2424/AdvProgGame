@@ -19,8 +19,8 @@ namespace HunterGame
         MouseState currentMouseState, oldMouseState;
 
         //mouse position and sprite
-        Vector2 cursor;
-        Texture2D crosshair;
+        private Vector2 cursor;
+        private Texture2D crosshair;
 
         //pause
         bool paused = false;
@@ -31,9 +31,9 @@ namespace HunterGame
             //sets up window and Game
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.IsFullScreen = false;
             graphics.PreferredBackBufferHeight = 720;
             graphics.PreferredBackBufferWidth = 1280;
+            
 
             
            
@@ -62,7 +62,7 @@ namespace HunterGame
             controller = new GameController();
 
             //initialize cursor to middle of screen
-            cursor = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2, graphics.GraphicsDevice.Viewport.Height / 2);
+            cursor = new Vector2(graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height);
             
 
             //set up player
@@ -107,9 +107,9 @@ namespace HunterGame
             oldMouseState = currentMouseState;
             currentMouseState = Mouse.GetState();
 
-            //update mouse sprite position
-            cursor.X = currentMouseState.X;
-            cursor.Y = currentMouseState.Y;
+            //update mouse sprite position.  Image is drawn from bottom right so we subtract
+            cursor.X = currentMouseState.X-(crosshair.Width/2);
+            cursor.Y = currentMouseState.Y-(crosshair.Height/2);
 
             //check for a paused key press.
             if (!paused)
@@ -164,6 +164,7 @@ namespace HunterGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
+            
             spriteBatch.Draw(crosshair, cursor);
             spriteBatch.End();
             
