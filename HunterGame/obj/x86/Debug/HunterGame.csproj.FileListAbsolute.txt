@@ -25,3 +25,30 @@ D:\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\obj\x86\Debug\Hun
 D:\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\obj\x86\Debug\HunterGame.csprojResolveAssemblyReference.cache
 D:\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\Content\Images\circle-03.png
 D:\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\Content\Graphics\circle-03.png
+D:\UserFiles\HunterGame\HunterGame\HunterGame\obj\x86\Debug\HunterGame.exe
+D:\UserFiles\HunterGame\HunterGame\HunterGame\obj\x86\Debug\HunterGame.pdb
+D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\Content\Graphics\circle-03.png
+D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\Content\Images\circle-03.png
+D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\HunterGame.exe
+D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\HunterGame.pdb
+D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\MonoGame.Framework.dll
+D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.MediaFoundation.dll
+D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.dll
+D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.XAudio2.dll
+D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.Direct3D11.dll
+D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.DXGI.dll
+D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.Direct2D1.dll
+D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.XInput.dll
+D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.RawInput.dll
+D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.Direct3D9.dll
+D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\MonoGame.Framework.xml
+D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.MediaFoundation.xml
+D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.xml
+D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.XAudio2.xml
+D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.Direct3D11.xml
+D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.DXGI.xml
+D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.Direct2D1.xml
+D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.XInput.xml
+D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.RawInput.xml
+D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.Direct3D9.xml
+D:\UserFiles\HunterGame\HunterGame\HunterGame\obj\x86\Debug\HunterGame.csprojResolveAssemblyReference.cache

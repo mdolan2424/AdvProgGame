@@ -40,9 +40,13 @@
   <ItemGroup>
     <Compile Include="Game\DifficultyContext.cs" />
     <Compile Include="Game\DifficultyState.cs" />
+    <Compile Include="Game\EasyEnemy.cs" />
     <Compile Include="Game\EasyState.cs" />
+    <Compile Include="Game\Enemy.cs" />
     <Compile Include="Game\GameController.cs" />
+    <Compile Include="Game\HardEnemy.cs" />
     <Compile Include="Game\Hunter.cs" />
+    <Compile Include="Game\ItemEnemy.cs" />
     <Compile Include="Game\Player\Player.cs" />
     <Compile Include="Game\Driver.cs" />
     <Compile Include="Game\InputManager.cs" />
@@ -50,6 +54,7 @@
     <Compile Include="Game\MediumState.cs" />
     <Compile Include="Game\Observable.cs" />
     <Compile Include="Game\Observer.cs" />
+    <Compile Include="Game\SpawnerProto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Game\Score.cs" />
   </ItemGroup>
