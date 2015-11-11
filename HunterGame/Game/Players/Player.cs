@@ -11,6 +11,11 @@ namespace HunterGame
         private string name;
         public int lives { get; set; }
         private int power;
+        private Score score;
+        public Score PlayerScore
+        {
+            get { return score; }
+        }
 
         //player state changes
         private PlayerContext status;
@@ -21,6 +26,7 @@ namespace HunterGame
             name = "";
             this.lives = lives;
             this.power = 0;
+            score = new Score();
             
         }
 
