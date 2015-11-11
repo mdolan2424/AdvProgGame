@@ -5,7 +5,7 @@ using System.Text;
 
 namespace HunterGame
 {
-    class Score:Observable
+    public class Score:Observable
     {
         private int score;
         public int ScoreVal{
@@ -28,11 +28,12 @@ namespace HunterGame
         }
         public void gainScore(int amount)
         {
-
+            ScoreVal += amount;
+            notify();
         }
         public void loseScore(int amount)
         {
-
+            ScoreVal -= amount;
         }
     }
 }

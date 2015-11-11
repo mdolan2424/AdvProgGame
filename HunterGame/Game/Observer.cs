@@ -5,7 +5,7 @@ using System.Text;
 
 namespace HunterGame
 {
-    abstract class Observer
+    public abstract class Observer
     {
         protected Observable subject;
         public abstract void update();

@@ -5,10 +5,13 @@ using System.Text;
 
 namespace HunterGame
 {
-    abstract class Observable
+    public abstract class Observable
     {
         protected List<Observer> observerList;
-
+        public List<Observer> ObserverList
+        {
+            get { return observerList; }
+        }
         
         public abstract void notify();
         public void register(Observer obs)
