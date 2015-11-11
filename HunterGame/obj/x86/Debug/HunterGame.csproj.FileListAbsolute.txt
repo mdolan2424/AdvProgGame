@@ -52,3 +52,31 @@ D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.XInput.x
 D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.RawInput.xml
 D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.Direct3D9.xml
 D:\UserFiles\HunterGame\HunterGame\HunterGame\obj\x86\Debug\HunterGame.csprojResolveAssemblyReference.cache
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\obj\x86\Debug\HunterGame.csprojResolveAssemblyReference.cache
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\Content\Graphics\circle-03.png
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\Content\Images\circle-03.png
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\HunterGame.exe
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\HunterGame.pdb
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\MonoGame.Framework.dll
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.MediaFoundation.dll
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.dll
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.XAudio2.dll
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.Direct3D11.dll
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.DXGI.dll
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.Direct2D1.dll
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.XInput.dll
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.RawInput.dll
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.Direct3D9.dll
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\MonoGame.Framework.xml
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.MediaFoundation.xml
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.xml
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.XAudio2.xml
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.Direct3D11.xml
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.DXGI.xml
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.Direct2D1.xml
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.XInput.xml
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.RawInput.xml
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\SharpDX.Direct3D9.xml
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\obj\x86\Debug\HunterGame.exe
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\obj\x86\Debug\HunterGame.pdb
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\Content\Graphics\red-potion.png
