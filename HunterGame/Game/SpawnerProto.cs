@@ -7,8 +7,21 @@ namespace HunterGame
 {
     public class SpawnerProto
     {
-        //Define our sub classes
-        EasyEnemy EnemyObject = new EasyEnemy();
+        //declare our incoming variables
+        private int WindowX;
+        private int WindowY;
+        private String Difficulty;
+        EnemySubclass Original;
+
+        //constructor
+        public SpawnerProto(int WindowX, int WindowY, String Difficulty)
+        {
+            this.WindowX = WindowX;
+            this.WindowY = WindowY;
+            this.Difficulty = Difficulty;
+        }
+
+        
 
         //Important piece of our 'Prototype Header' class. This portion of the code is important. It calls the clone copy from
         //the 'Enemy' interface. Basically this is what calls the cloneable action of our prototype.
@@ -21,18 +34,35 @@ namespace HunterGame
 
         //This is our class for returning our cloned enemy. May be changed in the future
         //To return a hashmap or dictionairy of a group of cloned classes.
-        public EasyEnemy getClonedEnemy()
+        public Dictionary<int, EnemySubclass> getClonedEnemy()
         {
-            EasyEnemy EnemyClone = (EasyEnemy)getEnemy(EnemyObject);
+            //Declare our class for cloning
+            Original = new EnemySubclass(WindowX, WindowY, Difficulty);
 
+            //declare our return dictionairy
+            Dictionary<int, EnemySubclass> returnDict = new Dictionary<int, EnemySubclass>();
 
-            return EnemyClone;
+            //return a filled hash map
+            //of the specified class (filled with 5 clones to start)
+            for(int i = 0; i < 5; i++)
+            {
+                //Set the attribs each time we add to the initial area
+                Original.setDifficultyAttribs();
+                //create our clone
+                EnemySubclass EnemyClone = (EnemySubclass)getEnemy(Original);
+                //add to dictionairy
+                returnDict.Add(i, EnemyClone);
+            }
+
+            //return dictionairy full of 5 seperate enemies
+
+            return returnDict;
         }
 
         //For testing purposes, We return the Original 'EnemyObject' that we used for cloning
-        public EasyEnemy getOriginal()
+        public EnemySubclass getOriginal()
         {
-            return EnemyObject;
+            return Original;
         }
     }
     

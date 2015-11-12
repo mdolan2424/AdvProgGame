@@ -38,9 +38,9 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="EnemySubclass.cs" />
     <Compile Include="Game\DifficultyContext.cs" />
     <Compile Include="Game\DifficultyState.cs" />
-    <Compile Include="Game\EasyEnemy.cs" />
     <Compile Include="Game\EasyState.cs" />
     <Compile Include="Game\Enemy.cs" />
     <Compile Include="Game\GameController.cs" />
