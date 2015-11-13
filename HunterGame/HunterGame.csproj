@@ -46,11 +46,11 @@
     <Compile Include="Game\GameController.cs" />
     <Compile Include="Game\HardEnemy.cs" />
     <Compile Include="Game\Hunter.cs" />
-    <Compile Include="Game\IDrawable.cs" />
-    <Compile Include="Game\ItemEnemy.cs" />
     <Compile Include="Game\Items\IItem.cs" />
     <Compile Include="Game\Items\ItemFactory.cs" />
+    <Compile Include="Game\Items\ItemManager.cs" />
     <Compile Include="Game\Items\LifePotion.cs" />
+    <Compile Include="Game\Items\Weapon.cs" />
     <Compile Include="Game\Players\Firing.cs" />
     <Compile Include="Game\Players\Player.cs" />
     <Compile Include="Game\Driver.cs" />
@@ -60,7 +60,6 @@
     <Compile Include="Game\Observable.cs" />
     <Compile Include="Game\Observer.cs" />
     <Compile Include="Game\Players\PlayerContext.cs" />
-    <Compile Include="Game\Players\PlayerRenderer.cs" />
     <Compile Include="Game\Players\IPlayerState.cs" />
     <Compile Include="Game\Players\Reloading.cs" />
     <Compile Include="Game\Players\Stunned.cs" />

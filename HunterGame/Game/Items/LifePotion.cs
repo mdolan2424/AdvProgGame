@@ -8,36 +8,60 @@ namespace HunterGame.Game.Items
 {
     public class LifePotion : IItem
     {
-        public int worth;
+        private int worth;
         public string name
         {
-            get;    
+            get; set;
         }
+
+        string IItem.image
+
+
+
+
+
+
+
+
+        {
+            get
+            {
+                return this.image;
+            }
+        }
+
+        int IItem.worth
+        {
+            get
+            {
+                return this.worth;
+            }
+        }
+
+        private string image;
         public Texture2D texture;
         public Vector2 position;
+
+        
+
         public LifePotion()
         {
             this.worth = 1;
             this.name = "Standard Life Potion";
             position = new Vector2(300, 400);
-            
-        }
-        
-        public void apply(Player player)
-        {
-            player.changeLives(worth);
+            image = "Graphics\\red-potion";
+
         }
 
-        public void Draw(Microsoft.Xna.Framework.Game game, SpriteBatch spritebatch)
+        public string getImage()
         {
-            
-            spritebatch.Draw(game.Content.Load<Texture2D>("Graphics\\red-potion"), position);
-            
-            
+            return this.image;
         }
-        public void Update(GameTime gametime)
+        public int apply()
         {
-            
+            return worth;
         }
+
+        
     }
 }

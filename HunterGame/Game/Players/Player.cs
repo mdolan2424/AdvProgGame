@@ -8,9 +8,9 @@ namespace HunterGame
 {
     public class Player
     {
-        private string name;
+        public string name { get; set; }
         public int lives { get; set; }
-        private int power;
+        public int power { get; set; }
 
         //player state changes
         private PlayerContext status;
@@ -23,14 +23,7 @@ namespace HunterGame
             this.power = 0;
             
         }
-
-        public void useItem(int item)
-        {
-            ItemFactory itemFac = new ItemFactory();
-            IItem tempItem = itemFac.getItem(item);
-            tempItem.apply(this);
-        }
-      
+        
         public void changeLives(int amount)
         {
             lives += amount;

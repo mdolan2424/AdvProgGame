@@ -8,10 +8,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace HunterGame.Game.Items
 {
-    public interface IItem: IDrawable
+    public interface IItem
     {
+        string name { get; }
+        string image { get; }
+        int worth { get; }
+        int apply();
         
-        void apply(Player player);
+        
         
         
     }

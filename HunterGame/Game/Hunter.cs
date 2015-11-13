@@ -26,27 +26,27 @@ namespace HunterGame
         //pause
         bool paused;
 
+        //itemappeared
+        bool itemappeared = false;
         //enemies
 
         //items
         Texture2D itemImage;
         Vector2 itemVector;
+        //use item
+        Player player;
 
-        List<IItem> items = new List<IItem>();
-        
-
-        
-        
+        ItemManager items;
         public Hunter()
         {
-
-            
             //sets up window and Game
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferHeight = 600;
             graphics.PreferredBackBufferWidth = 1080;
-            
+
+            //use item
+            player = new Player(3);
         }
 
         /// <summary>
@@ -113,30 +113,33 @@ namespace HunterGame
 
             //check for a paused key press.
             
-                if (currentKeyboardState.IsKeyDown(Keys.Escape))
+                if (currentKeyboardState.IsKeyDown(Keys.Escape) && oldKeyboardState.IsKeyUp(Keys.Escape))
                 {
                     paused = true;
                     Exit();
                 }
 
-                if (currentKeyboardState.IsKeyDown(Keys.W))
-                {
-                    //check if time to spawn an item
-
-                    //for now, let's just spawn one if the user hits W
-                    Random rand = new Random();
-                    int index = rand.Next(1, 3);
-                    //spawn a random item and draw to screen.
-                    ItemFactory factory = new ItemFactory();
-
-                //possible items
-
-                IItem spawnedItem = factory.getItem(1);
+            if (currentKeyboardState.IsKeyDown(Keys.W) && oldKeyboardState.IsKeyUp(Keys.W))
+            {
+                //check if time to spawn an item
 
 
-                items.Add(spawnedItem);
+                //spawn a random item and draw to screen.
+                items = new ItemManager();
+                items.createRandomItem();
+                itemappeared = true;
 
-                }
+
+            }
+
+            if (currentKeyboardState.IsKeyDown(Keys.E) && oldKeyboardState.IsKeyUp(Keys.E))
+            {
+               
+                //print change in lives for player
+                player.changeLives(items.useItem());
+                Console.Write(player.lives);
+
+            }
                 
             base.Update(gameTime);
         }
@@ -150,16 +153,16 @@ namespace HunterGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             spriteBatch.Draw(crosshair, cursor);
-
-            foreach (IItem entity in items)
+            if (itemappeared)
             {
-                entity.Draw(this, spriteBatch);
-
+                //draw item
+                items.Draw(this, spriteBatch);
+                //move around screen
+                items.changePosition(1, 1);
             }
+           
             spriteBatch.End();
             
-
-
             base.Draw(gameTime);
         }
         
