@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using HunterGame.Game.Items;
 using System.Collections.Generic;
+
 namespace HunterGame
 {
     /// <summary>
@@ -11,6 +12,17 @@ namespace HunterGame
     /// </summary>
     public class Hunter : Microsoft.Xna.Framework.Game
     {
+        //iterator for enemies in update
+        int iterator = 0;
+        //Dictionairy for containing enemy spawns
+        Dictionary<int, EnemySubclass> EnemyCont;
+        Dictionary<int, Vector2> EnemyVectors = new Dictionary<int, Vector2>();
+        SpawnerProto Proto;
+        //Vector's for First 5 enemies
+        
+
+
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
@@ -29,6 +41,7 @@ namespace HunterGame
         //itemappeared
         bool itemappeared = false;
         //enemies
+        Texture2D EnemyImage;
 
         //items
         Texture2D itemImage;
@@ -67,6 +80,22 @@ namespace HunterGame
             //initialize cursor
             cursor = new Vector2(graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height);
             paused = false;
+
+            //initialize enemy spawner
+
+            Proto = new SpawnerProto(graphics.GraphicsDevice.PresentationParameters.Bounds.Width, graphics.GraphicsDevice.PresentationParameters.Bounds.Height, "Easy");
+            EnemyCont = Proto.getClonedEnemy();
+
+            //initialize our enemy vectors.
+
+            for (int j = 0; j < 5; j++)
+            {
+                int[] Start = EnemyCont[j].getStartPos();
+                Vector2 CurrentEnemyVector = new Vector2(Start[0], Start[1]);
+                EnemyCont[j].setDifficultyAttribs();
+                EnemyVectors.Add(j, CurrentEnemyVector);
+            }
+
             base.Initialize();
         }
 
@@ -80,6 +109,10 @@ namespace HunterGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
             
             crosshair = Content.Load<Texture2D>("Graphics\\circle-03");
+
+            //for enemies
+            
+            EnemyImage = Content.Load<Texture2D>("Graphics\\rubber-duck-icon");
         }
 
         /// <summary>
@@ -139,10 +172,63 @@ namespace HunterGame
                 player.changeLives(items.useItem());
                 Console.Write(player.lives);
 
+
+                }
+
+            //logic for updating enemies. loop through and set values for each
+            for(int i = 0; i < 5; i++)
+            {
+                //Initialize vector if not already initialized
+                if(EnemyVectors.Count < 1)
+                {
+                    //Second for loop to populate the vector
+                    for(int j = 0; j < 5; j++)
+                    {
+                        int[] Start = EnemyCont[j].getStartPos();
+                        Vector2 CurrentEnemyVector = new Vector2(Start[0], Start[1]);
+                        EnemyCont[j].setDifficultyAttribs();
+                        EnemyVectors.Add(j, CurrentEnemyVector);
+                    }
+                }
+
+                //Get our destination address
+                float[] Dest = EnemyCont[i].getDestination();
+
+                //After initialize check, we check to see if the enemy has reached its destination
+                //if the enemy reaches its initial destination, it then changes position
+                int x = (int)EnemyVectors[i].X;
+                int y = (int)EnemyVectors[i].Y;
+                if(Math.Abs(EnemyVectors[i].X - Dest[0]) < 5 && Math.Abs(EnemyVectors[i].Y - Dest[1]) < 5)
+                {
+                    //reset for a new destination
+                    EnemyCont[i].resetDestination();
+            
+                }
+                //adjust for x
+                else if(EnemyVectors[i].X <= Dest[0] && EnemyVectors[i].Y <= Dest[1])
+                {
+                    EnemyVectors[i] = new Vector2(x + 1, y + 1);
+                }
+                else if (EnemyVectors[i].X > Dest[0] && EnemyVectors[i].Y < Dest[1])
+                {
+                    EnemyVectors[i] = new Vector2(x - 1, y + 1);
+                }
+                //adjust for y
+                else if (EnemyVectors[i].X < Dest[0] && EnemyVectors[i].Y > Dest[1])
+                {
+                    EnemyVectors[i] = new Vector2(x + 1, y - 1);
+                }
+                else if (EnemyVectors[i].X > Dest[0] && EnemyVectors[i].Y > Dest[1])
+                {
+                    EnemyVectors[i] = new Vector2(x - 1, y - 1);
+                }
+
+
             }
                 
             base.Update(gameTime);
         }
+
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -153,6 +239,7 @@ namespace HunterGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             spriteBatch.Draw(crosshair, cursor);
+
             if (itemappeared)
             {
                 //draw item
@@ -160,6 +247,14 @@ namespace HunterGame
                 //move around screen
                 items.changePosition(1, 1);
             }
+
+            //draw our enemies
+            for (int i = 0; i < 5; i++)
+            {
+                spriteBatch.Draw(EnemyImage, EnemyVectors[i]);
+            }
+
+          
            
             spriteBatch.End();
             

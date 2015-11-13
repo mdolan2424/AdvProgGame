@@ -5,8 +5,24 @@ using System.Text;
 
 namespace HunterGame
 {
-    abstract class DifficultyState
+    public abstract class DifficultyState
     {
-       
+        protected int enemySpeed;
+        protected int maxEnemies;
+        protected int enemyScreenTime;
+    
+        public int EnemySpeed
+        {
+            get { return enemySpeed; }
+        }
+        public int MaxEnemies
+        {
+            get { return maxEnemies; }
+        }
+        public int EnemyScreenTime
+        {
+            get { return enemyScreenTime; }
+        }
     }
+
 }

@@ -38,9 +38,9 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="EnemySubclass.cs" />
     <Compile Include="Game\DifficultyContext.cs" />
     <Compile Include="Game\DifficultyState.cs" />
-    <Compile Include="Game\EasyEnemy.cs" />
     <Compile Include="Game\EasyState.cs" />
     <Compile Include="Game\Enemy.cs" />
     <Compile Include="Game\GameController.cs" />
@@ -75,10 +75,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Graphics\circle-03.png" />
+    <Content Include="Content\Graphics\red-potion.png" />
+    <Content Include="Content\Graphics\rubber-duck-icon.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\Graphics\NewSpriteFont.spritefont" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

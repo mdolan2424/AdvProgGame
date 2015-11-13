@@ -5,7 +5,13 @@ using System.Text;
 
 namespace HunterGame
 {
-    class EasyState:DifficultyState
+    public class EasyState:DifficultyState
     {
+        public EasyState()
+        {
+            enemyScreenTime = 10;
+            enemySpeed = 2;
+            maxEnemies = 3;
+        }
     }
 }
