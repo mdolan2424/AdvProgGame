@@ -82,3 +82,4 @@ C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\obj\x8
 C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\Content\Graphics\red-potion.png
 D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\Content\Graphics\red-potion.png
 D:\UserFiles\HunterGame\HunterGame\HunterGame\bin\Windows\Debug\Content\Graphics\rubber-duck-icon.xnb
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\HunterGame\HunterGame\bin\Windows\Debug\Content\Graphics\rubber-duck-icon.xnb

@@ -53,16 +53,14 @@ namespace HunterGame
 
         public float[] getDestination()
         {
-            return destination;
+            return this.destination;
         }
         
 
         //Method for reset of the destination
-        public float[] resetDestination()
+        public float[] resetDestination(float RanDestX,float RanDestY)
         {
-            Random Ran = new Random();
-            float RanDestX = Ran.Next(this.WindowX);
-            float RanDestY = Ran.Next(this.WindowY);
+            
             //Store start and end in array for return
             float[] returnArray = new float[2];
             returnArray[0] = RanDestX;
@@ -79,6 +77,7 @@ namespace HunterGame
         {
             //Generate random starting position for the enemy
             Random Ran = new Random();
+            
             this.StartX = Ran.Next(this.WindowX); //We do this to make sure it starts off screen.
             this.StartY = Ran.Next(this.WindowY);
 

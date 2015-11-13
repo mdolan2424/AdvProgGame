@@ -12,6 +12,7 @@ namespace HunterGame
     /// </summary>
     public class Hunter : Microsoft.Xna.Framework.Game
     {
+        Random Ran;
         //iterator for enemies in update
         int iterator = 0;
         //Dictionairy for containing enemy spawns
@@ -20,9 +21,6 @@ namespace HunterGame
         SpawnerProto Proto;
         //Vector's for First 5 enemies
         
-
-
-
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
@@ -58,8 +56,7 @@ namespace HunterGame
             graphics.PreferredBackBufferHeight = 600;
             graphics.PreferredBackBufferWidth = 1080;
 
-            //use item
-            player = new Player(3);
+            
         }
 
         /// <summary>
@@ -70,7 +67,9 @@ namespace HunterGame
         /// </summary>
         protected override void Initialize()
         {
-
+            Ran = new Random();
+            //use item
+            player = new Player(3);
             //Handles game logic separate from Rendering
             controller = new GameController();
             //mouse and keyboard states
@@ -174,23 +173,17 @@ namespace HunterGame
 
 
                 }
+            for (int i = 0; i < 5; i++)
+            {
+                
+            }
 
             //logic for updating enemies. loop through and set values for each
             for(int i = 0; i < 5; i++)
             {
-                //Initialize vector if not already initialized
-                if(EnemyVectors.Count < 1)
-                {
-                    //Second for loop to populate the vector
-                    for(int j = 0; j < 5; j++)
-                    {
-                        int[] Start = EnemyCont[j].getStartPos();
-                        Vector2 CurrentEnemyVector = new Vector2(Start[0], Start[1]);
-                        EnemyCont[j].setDifficultyAttribs();
-                        EnemyVectors.Add(j, CurrentEnemyVector);
-                    }
-                }
-
+                
+                float RanDestX = Ran.Next(graphics.PreferredBackBufferWidth);
+                float RanDestY = Ran.Next(graphics.PreferredBackBufferHeight);
                 //Get our destination address
                 float[] Dest = EnemyCont[i].getDestination();
 
@@ -198,29 +191,36 @@ namespace HunterGame
                 //if the enemy reaches its initial destination, it then changes position
                 int x = (int)EnemyVectors[i].X;
                 int y = (int)EnemyVectors[i].Y;
-                if(Math.Abs(EnemyVectors[i].X - Dest[0]) < 5 && Math.Abs(EnemyVectors[i].Y - Dest[1]) < 5)
+                if(Math.Abs(EnemyVectors[i].X- Dest[0]) < 5 && Math.Abs(EnemyVectors[i].Y - Dest[1]) < 5)
                 {
                     //reset for a new destination
-                    EnemyCont[i].resetDestination();
+                    EnemyCont[i].resetDestination(RanDestX,RanDestY);
             
                 }
                 //adjust for x
-                else if(EnemyVectors[i].X <= Dest[0] && EnemyVectors[i].Y <= Dest[1])
+                if(EnemyVectors[i].X <= Dest[0])
                 {
-                    EnemyVectors[i] = new Vector2(x + 1, y + 1);
+                    x += 1;
+                    EnemyVectors[i] = new Vector2(x, y);
                 }
-                else if (EnemyVectors[i].X > Dest[0] && EnemyVectors[i].Y < Dest[1])
+
+                else if (EnemyVectors[i].X >= Dest[0])
                 {
-                    EnemyVectors[i] = new Vector2(x - 1, y + 1);
+                    x -= 1;
+                    EnemyVectors[i] = new Vector2(x, y);
+
+                }
+                if (EnemyVectors[i].Y <= Dest[1])
+                {
+                    y += 1;
+                    EnemyVectors[i] = new Vector2(x, y);
                 }
                 //adjust for y
-                else if (EnemyVectors[i].X < Dest[0] && EnemyVectors[i].Y > Dest[1])
+               
+                else if (EnemyVectors[i].Y >= Dest[1])
                 {
-                    EnemyVectors[i] = new Vector2(x + 1, y - 1);
-                }
-                else if (EnemyVectors[i].X > Dest[0] && EnemyVectors[i].Y > Dest[1])
-                {
-                    EnemyVectors[i] = new Vector2(x - 1, y - 1);
+                    y -= 1;
+                    EnemyVectors[i] = new Vector2(x, y);
                 }
 
 
