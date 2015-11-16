@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,12 @@ namespace HunterGame
     {
         //Basic attributes. speed, icon
         int speed;
+        int killWorth;
+        //how many locations the enemy goes to before leaving the screen
+        int screenPoints;
+        //how many locations the enemy has been to.
+        int locCount;
         String icon;
-        //Difficulty
-        String Difficulty;
         //Starting position
         int StartX;
         int StartY;
@@ -22,7 +26,10 @@ namespace HunterGame
         //Destination
         float[] destination = new float[2];
         
-
+        public int ScreenPoints
+        {
+            get { return screenPoints; }
+        }
 
 
         //Here we throw the cloneable exception
@@ -32,13 +39,12 @@ namespace HunterGame
         }
 
         //The main
-        public EnemySubclass(int WindowX, int WindowY, String Difficulty)
+        public EnemySubclass(int WindowX, int WindowY)
         {
             //Set our difficulty and window size
-            this.Difficulty = Difficulty;
             this.WindowX = WindowX;
             this.WindowY = WindowY;
-
+            locCount = 0;
             Console.Write("This is the Easy Enemy Class....\n");
         }
         //Basic getters
@@ -73,7 +79,7 @@ namespace HunterGame
         }
 
         //Method for setting all the appropriate settings based on difficulty setting
-        public void setDifficultyAttribs()
+        public void setDifficultyAttribs(int speed, int killWorth, int screenPoints)
         {
             //Generate random starting position for the enemy
             Random Ran = new Random();
@@ -85,19 +91,11 @@ namespace HunterGame
             this.destination[0] = Ran.Next(this.WindowX);
             this.destination[1] = Ran.Next(this.WindowY);
 
+            this.speed = speed;
+            this.killWorth = killWorth;
+            this.screenPoints = screenPoints;
 
-            if (Difficulty.Equals("Easy"))
-            {
-                speed = 100;
-            }
-            else if (Difficulty.Equals("Medium"))
-            {
-                speed = 150;
-            }
-            else
-            {
-                speed = 200;
-            }
+
 
 
         }
@@ -123,6 +121,14 @@ namespace HunterGame
             return EnemyObject;
 
 
+        }
+        public void incrementLocCount()
+        {
+            locCount++;
+        }
+        public int getLocationCount()
+        {
+            return locCount;
         }
     }
 }

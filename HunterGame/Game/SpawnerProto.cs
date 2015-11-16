@@ -10,15 +10,13 @@ namespace HunterGame
         //declare our incoming variables
         private int WindowX;
         private int WindowY;
-        private String Difficulty;
         EnemySubclass Original;
 
         //constructor
-        public SpawnerProto(int WindowX, int WindowY, String Difficulty)
+        public SpawnerProto(int WindowX, int WindowY)
         {
             this.WindowX = WindowX;
             this.WindowY = WindowY;
-            this.Difficulty = Difficulty;
         }
 
         
@@ -34,27 +32,32 @@ namespace HunterGame
 
         //This is our class for returning our cloned enemy. May be changed in the future
         //To return a hashmap or dictionairy of a group of cloned classes.
-        public Dictionary<int, EnemySubclass> getClonedEnemy()
+        public Dictionary<int, EnemySubclass> getClonedEnemy(int count, DifficultyState state)
         {
             //Declare our class for cloning
-            Original = new EnemySubclass(WindowX, WindowY, Difficulty);
+            Original = new EnemySubclass(WindowX, WindowY);
 
             //declare our return dictionairy
             Dictionary<int, EnemySubclass> returnDict = new Dictionary<int, EnemySubclass>();
 
             //return a filled hash map
             //of the specified class (filled with 5 clones to start)
-            for(int i = 0; i < 5; i++)
-            {
+            for(int i = 0; i < count; i++)
+            {   
+
                 //Set the attribs each time we add to the initial area
-                Original.setDifficultyAttribs();
+                Original.setDifficultyAttribs(state.EnemySpeed,state.EnemyKillWorth,state.EnemyScreenPts);
                 //create our clone
-                EnemySubclass EnemyClone = (EnemySubclass)getEnemy(Original);
+                EnemySubclass EnemyClone = (EnemySubclass)getEnemy(Original);             
+                
+                
+
                 //add to dictionairy
                 returnDict.Add(i, EnemyClone);
             }
 
             //return dictionairy full of 5 seperate enemies
+
 
             return returnDict;
         }
