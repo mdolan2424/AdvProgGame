@@ -9,9 +9,10 @@ namespace HunterGame
     {
         public HardState()
         {
-            enemyScreenTime = 5;
+            enemyScreenPts = 1;
             enemySpeed = 5;
             maxEnemies = 8;
+            enemyKillWorth = 15;
         }
     }
 }

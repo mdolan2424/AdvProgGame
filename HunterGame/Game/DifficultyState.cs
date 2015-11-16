@@ -9,7 +9,8 @@ namespace HunterGame
     {
         protected int enemySpeed;
         protected int maxEnemies;
-        protected int enemyScreenTime;
+        protected int enemyScreenPts;
+        protected int enemyKillWorth;
     
         public int EnemySpeed
         {
@@ -19,9 +20,13 @@ namespace HunterGame
         {
             get { return maxEnemies; }
         }
-        public int EnemyScreenTime
+        public int EnemyScreenPts
         {
-            get { return enemyScreenTime; }
+            get { return enemyScreenPts; }
+        }
+        public int EnemyKillWorth
+        {
+            get { return enemyKillWorth; }
         }
     }
 
