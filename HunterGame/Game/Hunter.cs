@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -15,9 +17,9 @@ namespace HunterGame
         Random Ran;
         //iterator for enemies in update
         int iterator = 0;
-        //Dictionairy for containing enemy spawns
-        Dictionary<int, EnemySubclass> EnemyCont;
-        Dictionary<int, Vector2> EnemyVectors = new Dictionary<int, Vector2>();
+        //Dictionary for containing enemy spawns
+        List<EnemySubclass> EnemyCont;
+        List<Vector2> EnemyVectors = new List<Vector2>();
         SpawnerProto Proto;
         //Vector's for First 5 enemies
         
@@ -32,7 +34,8 @@ namespace HunterGame
         //mouse position and sprite
         private Vector2 cursor;
         private Texture2D crosshair;
-
+        private Vector2 scoreVector;
+        private Vector2 livesVector;
         //pause
         bool paused;
 
@@ -46,6 +49,10 @@ namespace HunterGame
         Vector2 itemVector;
         //use item
         Player player;
+
+        SpriteFont font;
+
+        double spawnTime = 0;
 
         ItemManager items;
         public Hunter()
@@ -71,7 +78,7 @@ namespace HunterGame
             //use item
             player = new Player(3);
             //Handles game logic separate from Rendering
-            controller = new GameController();
+            controller = new GameController(graphics.GraphicsDevice.PresentationParameters.Bounds.Width, graphics.GraphicsDevice.PresentationParameters.Bounds.Height);
             //mouse and keyboard states
             currentKeyboardState = new KeyboardState();
             currentMouseState = new MouseState();
@@ -79,21 +86,11 @@ namespace HunterGame
             //initialize cursor
             cursor = new Vector2(graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height);
             paused = false;
+            scoreVector = new Vector2(graphics.GraphicsDevice.Viewport.Width - 150, graphics.GraphicsDevice.Viewport.Height - 40);
+            livesVector = new Vector2(graphics.GraphicsDevice.Viewport.Width - 300, graphics.GraphicsDevice.Viewport.Height - 40);
 
-            //initialize enemy spawner
-
-            Proto = new SpawnerProto(graphics.GraphicsDevice.PresentationParameters.Bounds.Width, graphics.GraphicsDevice.PresentationParameters.Bounds.Height, "Easy");
-            EnemyCont = Proto.getClonedEnemy();
-
-            //initialize our enemy vectors.
-
-            for (int j = 0; j < 5; j++)
-            {
-                int[] Start = EnemyCont[j].getStartPos();
-                Vector2 CurrentEnemyVector = new Vector2(Start[0], Start[1]);
-                EnemyCont[j].setDifficultyAttribs();
-                EnemyVectors.Add(j, CurrentEnemyVector);
-            }
+            
+           
 
             base.Initialize();
         }
@@ -108,7 +105,7 @@ namespace HunterGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
             
             crosshair = Content.Load<Texture2D>("Graphics\\circle-03");
-
+            font = Content.Load<Microsoft.Xna.Framework.Graphics.SpriteFont>("SpriteFont1");
             //for enemies
             
             EnemyImage = Content.Load<Texture2D>("Graphics\\rubber-duck-icon");
@@ -170,61 +167,20 @@ namespace HunterGame
                 //print change in lives for player
                 player.changeLives(items.useItem());
                 Console.Write(player.lives);
-
-
-                }
-            for (int i = 0; i < 5; i++)
-            {
-                
             }
-
-            //logic for updating enemies. loop through and set values for each
-            for(int i = 0; i < 5; i++)
-            {
-                
-                float RanDestX = Ran.Next(graphics.PreferredBackBufferWidth);
-                float RanDestY = Ran.Next(graphics.PreferredBackBufferHeight);
-                //Get our destination address
-                float[] Dest = EnemyCont[i].getDestination();
-
-                //After initialize check, we check to see if the enemy has reached its destination
-                //if the enemy reaches its initial destination, it then changes position
-                int x = (int)EnemyVectors[i].X;
-                int y = (int)EnemyVectors[i].Y;
-                if(Math.Abs(EnemyVectors[i].X- Dest[0]) < 5 && Math.Abs(EnemyVectors[i].Y - Dest[1]) < 5)
-                {
-                    //reset for a new destination
-                    EnemyCont[i].resetDestination(RanDestX,RanDestY);
             
-                }
-                //adjust for x
-                if(EnemyVectors[i].X <= Dest[0])
-                {
-                    x += 1;
-                    EnemyVectors[i] = new Vector2(x, y);
-                }
-
-                else if (EnemyVectors[i].X >= Dest[0])
-                {
-                    x -= 1;
-                    EnemyVectors[i] = new Vector2(x, y);
-
-                }
-                if (EnemyVectors[i].Y <= Dest[1])
-                {
-                    y += 1;
-                    EnemyVectors[i] = new Vector2(x, y);
-                }
-                //adjust for y
-               
-                else if (EnemyVectors[i].Y >= Dest[1])
-                {
-                    y -= 1;
-                    EnemyVectors[i] = new Vector2(x, y);
-                }
-
-
+            spawnTime += gameTime.ElapsedGameTime.TotalSeconds;
+            if(spawnTime>2)
+            {
+                controller.spawnEnemy();
+                spawnTime = 0;
             }
+
+            controller.updateEnemies();
+            EnemyCont = controller.EnemiesOnScreen;
+            EnemyVectors = controller.EnemiesVector;
+            
+           
                 
             base.Update(gameTime);
         }
@@ -249,12 +205,14 @@ namespace HunterGame
             }
 
             //draw our enemies
-            for (int i = 0; i < 5; i++)
+            for (int i = EnemyVectors.Count-1; i >0; i--)
             {
                 spriteBatch.Draw(EnemyImage, EnemyVectors[i]);
             }
 
-          
+
+            spriteBatch.DrawString(font, "Score: " + controller.getScore(), scoreVector, Color.Black);
+            spriteBatch.DrawString(font, "Lives: " + controller.getLives(), livesVector, Color.Black);
            
             spriteBatch.End();
             
