@@ -15,14 +15,7 @@ namespace HunterGame.Game.Items
         }
 
         string IItem.image
-
-
-
-
-
-
-
-
+            
         {
             get
             {

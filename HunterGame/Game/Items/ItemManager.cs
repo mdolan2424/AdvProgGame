@@ -22,8 +22,8 @@ namespace HunterGame.Game.Items
 
         //current item displayed on screen
         Texture2D texture;
-        Vector2 position;
-
+        public Vector2 position;
+        
         private int nextX;
         private int nextY;
 
@@ -33,7 +33,7 @@ namespace HunterGame.Game.Items
         public ItemManager()
         {
             itemList = new List<IItem>();
-
+            
             nextX = 1;
             nextY = 1;
             //default spawn point
@@ -44,21 +44,30 @@ namespace HunterGame.Game.Items
         //get a random item
         public void createRandomItem()
         {
+            
             //static for now.
             spawnedItem = factory.getItem(1);
+
             itemList.Add(spawnedItem);
         }
 
         public int useItem()
         {
+            
+            int worth = spawnedItem.worth;
+            itemList.Remove(spawnedItem);
             //destroy item
-            return spawnedItem.worth;
+            return worth;
         }
+
+      
         
         public string reportItemType()
         {
             return spawnedItem.name;
         }
+
+
         public void changePosition(int x, int y)
         {
             Random rand = new Random();
@@ -72,24 +81,23 @@ namespace HunterGame.Game.Items
             {
                 nextY = nextY * -1;
             }
+            
             position.X += nextX;
             position.Y += nextY;
-
+            
             //check if out of bounds.
         }
 
-        public void Draw(Microsoft.Xna.Framework.Game game, SpriteBatch spritebatch)
+        public Vector2 getPosition()
         {
-            
-                //draw at texture2d and vector
-            spritebatch.Draw(game.Content.Load<Texture2D>(spawnedItem.image), position);
-            
-               
-
+            return position;
         }
-        public void Update(GameTime gametime)
+
+        public string getImage()
         {
-
+            return spawnedItem.image;
         }
+
+        
     }
 }

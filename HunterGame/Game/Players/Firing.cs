@@ -7,14 +7,19 @@ namespace HunterGame.Game.Players
 {
     class Firing : IPlayerState
     {
+        int damage;
+        string notification;
+
         public Firing()
         {
+            damage = 1;
+            notification = "";
 
         }
 
-        public string shoot()
+        public int shoot()
         {
-            return "Success";
+            return damage;
         }
     }
 }

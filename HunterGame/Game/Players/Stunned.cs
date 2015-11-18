@@ -7,14 +7,16 @@ namespace HunterGame.Game.Players
 {
     class Stunned : IPlayerState
     {
-
+        int damage;
+        string notification;
         public Stunned()
         {
-
+            damage = 0;
+            notification = "You are stunned!";
         }
-        public string shoot()
+        public int shoot()
         {
-            return "You are stunned!";
+            return damage;
         }
     }
 }

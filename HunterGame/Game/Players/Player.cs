@@ -26,9 +26,10 @@ namespace HunterGame
 
         public Player(int lives)
         {
+            //defaults
             name = "";
             this.lives = lives;
-            this.power = 0;
+            this.power = 1;
             score = new Score();
             
         }
@@ -43,6 +44,14 @@ namespace HunterGame
             power += amount;
         }
 
+        public int shootEnemy()
+        {
+            IPlayerState state = status.getState();
+            //damage calculation
+            int damage = this.power * state.shoot();
+
+            return damage;
+        }
 
 
     }

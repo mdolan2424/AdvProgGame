@@ -7,14 +7,18 @@ namespace HunterGame.Game.Players
 {
     class Reloading : IPlayerState
     {
+
+        int damage;
+        string notification;
         public Reloading()
         {
-            
+            damage = 0;
+            notification = "You are reloading!";
         }
         
-        public string shoot()
+        public int shoot()
         {
-            return "You are reloading!";
+            return damage;
         }
     }
 }

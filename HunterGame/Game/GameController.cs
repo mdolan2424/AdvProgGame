@@ -22,7 +22,10 @@ namespace HunterGame
         private List<Vector2> enemiesVector;
         private List<EnemySubclass> enemiesOnScreen;
         private Random rand = new Random();
+
         
+        //items
+        private ItemManager items;
 
         public List<EnemySubclass> EnemiesOnScreen
         {
@@ -35,6 +38,7 @@ namespace HunterGame
 
         public GameController (int windowX, int windowY)
         {
+            
             //game controller will keep track of
             //player, enemies, score, items.
             player = new Player(3);
@@ -50,9 +54,40 @@ namespace HunterGame
             //initialize enemy queue
             fillEnemyQueue();
             //spawnEnemies();
-            
+
+
+            items = new ItemManager();
              
             
+        }
+
+        public void checkObjectShot(Point point)
+        {
+            Rectangle rect = new Rectangle(point.X, point.Y, 60, 60); //buggy at the moment, doesn't center on image.
+
+            for (int i = enemiesOnScreen.Count - 1; i > 0; i--)
+            {
+                
+                
+                if (rect.Contains(enemiesVector[i]))
+                {
+                    Console.Write("Enemy shot"); //remove this later.
+                    enemiesVector.Remove(enemiesVector[i]);
+                    enemiesOnScreen.Remove(enemiesOnScreen[i]);
+                }
+
+
+            }
+
+            //check if item shot
+            if (rect.Contains(items.position))
+            {
+                //spawn a random item and draw to screen.
+                Console.Write("Item Shot"); // remove this
+                player.changeLives(items.useItem());
+
+            }
+
         }
 
         public void fillEnemyQueue()
@@ -164,9 +199,19 @@ namespace HunterGame
 
             }
         }
-        public void spawnItem()
-        {          
 
+        public Vector2 updateItem()
+        {
+            items.changePosition(1, 1);
+            return items.getPosition();
+        }
+
+         
+        public String spawnItem()
+        {
+            items.createRandomItem();
+            return items.getImage();
+            
         }
         
         public int getScore()

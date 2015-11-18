@@ -151,14 +151,12 @@ namespace HunterGame
             if (currentKeyboardState.IsKeyDown(Keys.W) && oldKeyboardState.IsKeyUp(Keys.W))
             {
                 //check if time to spawn an item
-
-
-                //spawn a random item and draw to screen.
-                items = new ItemManager();
-                items.createRandomItem();
+                
+                itemImage = Content.Load<Texture2D>(controller.spawnItem());
+                itemVector = controller.updateItem();
                 itemappeared = true;
-
-
+                
+                
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.E) && oldKeyboardState.IsKeyUp(Keys.E))
@@ -180,8 +178,16 @@ namespace HunterGame
             EnemyCont = controller.EnemiesOnScreen;
             EnemyVectors = controller.EnemiesVector;
             
-           
+
+            //check if mouse click
+            if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
+            {
+                Point mousePosition = new Point(currentMouseState.X, currentMouseState.Y);
+                controller.checkObjectShot(mousePosition);
                 
+
+            }
+            
             base.Update(gameTime);
         }
 
@@ -198,10 +204,11 @@ namespace HunterGame
 
             if (itemappeared)
             {
+                //move item
+                itemVector = controller.updateItem();
                 //draw item
-                items.Draw(this, spriteBatch);
-                //move around screen
-                items.changePosition(1, 1);
+                spriteBatch.Draw(itemImage, itemVector);
+
             }
 
             //draw our enemies
