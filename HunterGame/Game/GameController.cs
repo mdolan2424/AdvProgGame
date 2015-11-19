@@ -49,6 +49,8 @@ namespace HunterGame
             enemiesVector = new List<Vector2>();
             enemiesOnScreen = new List<EnemySubclass>();
 
+            
+
             windowHeight = windowY;
             windowWidth = windowX;
             //initialize enemy queue
@@ -63,11 +65,11 @@ namespace HunterGame
 
         public void checkObjectShot(Point point)
         {
+            
             Rectangle rect = new Rectangle(point.X, point.Y, 60, 60); //buggy at the moment, doesn't center on image.
 
             for (int i = enemiesOnScreen.Count - 1; i > 0; i--)
-            {
-                
+            {                
                 
                 if (rect.Contains(enemiesVector[i]))
                 {
@@ -96,6 +98,7 @@ namespace HunterGame
 
            foreach(int key in enemyDict.Keys)
            {
+               
                enemyQueue.Enqueue(enemyDict[key]);
            }            
            
@@ -112,9 +115,7 @@ namespace HunterGame
                     int[] Start = enemy.getStartPos();
                     Vector2 CurrentEnemyVector = new Vector2(Start[0], Start[1]);  
                     
-                    float RanDestX = rand.Next(windowWidth);
-                    float RanDestY = rand.Next(windowHeight);
-                    enemy.resetDestination(RanDestX, RanDestY);
+                    enemy.Destination = createDestination(Start[0],Start[1]);
                     
                         enemiesVector.Add(CurrentEnemyVector);
                         enemiesOnScreen.Add(enemy);
@@ -139,58 +140,50 @@ namespace HunterGame
                 bool remove = false;
                 float RanDestX = rand.Next(windowWidth);
                 float RanDestY = rand.Next(windowHeight);
-                //Get our destination address
 
-                float[] Dest = enemiesOnScreen[i].getDestination();
 
-                //After initialize check, we check to see if the enemy has reached its destination
-                //if the enemy reaches its initial destination, it then changes position
-                int[] Start = enemiesOnScreen[i].getStartPos();
+                //get the current position of the enemy
+                Vector2 start = enemiesVector[i];               
 
-                int x = (int)enemiesVector[i].X;
-                int y = (int)enemiesVector[i].Y;
-                if (Math.Abs(x- Dest[0]) < 5 && Math.Abs(y - Dest[1]) < 5)
+                //get the destination of the enemy
+                Vector2 dest = enemiesOnScreen[i].Destination;
+                
+                //check if the enemy is near the boundary
+                if (Math.Abs(start.X- dest.X) < 5 && Math.Abs(start.Y - dest.Y) < 5)
                 {
                     if (enemiesOnScreen[i].getLocationCount() < enemiesOnScreen[i].ScreenPoints)
                     {
                         //reset for a new destination
-                        enemiesOnScreen[i].resetDestination(RanDestX, RanDestY);
+                        enemiesOnScreen[i].Destination = createDestination(dest.X, dest.Y);
                         enemiesOnScreen[i].incrementLocCount();
 
                     }
                     else
                     {
+                        //if the enemy goes off screen lose a life.
                         player.changeLives(-1);
                         remove = true;
                     }
 
                 }
-                //adjust for x
-                if (x<= Dest[0])
-                {
-                    x += 1;
-                    enemiesVector[i] = new Vector2(x, y);
-                }
+                //the enemies speed 
+                float speed = enemiesOnScreen[i].Speed;
+                
+                //Vector2 end = enemiesOnScreen[i].Destination;
+                float distance = Vector2.Distance(start,dest);
+                //calculate the direction of the enemy (how far to travel in each direction to move a distance of 1 closer to the destination)
+                Vector2 direction = Vector2.Normalize(dest - start);
 
-                else if (x >= Dest[0])
+                //get move the enemy closer to the destination (the value of speed units closer)
+                enemiesVector[i] += direction * speed;
+                //check if the enemy has moved beyond its destination
+                if (Vector2.Distance(start, enemiesVector[i]) >= distance)
                 {
-                    x -= 1;
-                    enemiesVector[i] = new Vector2(x, y);
-
+                    enemiesVector[i] = dest;
+                       
                 }
-                if (y <= Dest[1])
-                {
-                    y += 1;
-                    enemiesVector[i] = new Vector2(x, y);
-                }
-                //adjust for y
-
-                else if (y >= Dest[1])
-                {
-                    y -= 1;
-                    enemiesVector[i] = new Vector2(x, y);
-                }
-
+                
+                //if the enemy has reached its max 
                 if (remove)
                 {
                     enemiesOnScreen.RemoveAt(i);
@@ -199,6 +192,67 @@ namespace HunterGame
 
             }
         }
+
+        //randomly generate destination
+        public Vector2 createDestination(float currX, float currY)
+        {
+
+            Random rand = new Random();
+            Vector2 dest = new Vector2();
+
+            int currDirect;
+
+            //determine which edge the enemy just came from (so it doesn't go back to the same edge)
+            if(currX ==0)
+            {
+                currDirect = 0;
+            }
+            else if(currX==windowWidth)
+            {
+                currDirect = 2;
+            }
+            else if(currY ==0)
+            {
+                currDirect = 1;
+            }
+            else
+            {
+                currDirect = 3;
+            }
+            
+
+            int edge;
+            //loop until the random is a new edge
+            do
+            {
+                edge = rand.Next(3);
+            } while (edge == currDirect);
+
+            //set the value of the vector depending on which edge was chosen
+            switch(edge){
+                case 0:
+                    dest.X = 0;
+                    dest.Y = rand.Next(windowHeight);
+                    break;
+                case 1:
+                    dest.X = rand.Next(windowWidth);
+                    dest.Y =0;
+                    break;
+                case 2:
+                    dest.X = windowWidth;
+                    dest.Y = rand.Next(windowHeight);
+                    break;
+                default:
+                    dest.X = rand.Next(windowWidth);
+                    dest.Y = windowHeight;
+                    break;
+            };
+
+
+            return dest;
+            
+        }
+
 
         public Vector2 updateItem()
         {

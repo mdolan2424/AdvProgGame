@@ -10,7 +10,7 @@ namespace HunterGame
     public class EnemySubclass : Enemy
     {
         //Basic attributes. speed, icon
-        int speed;
+        float speed;
         int killWorth;
         //how many locations the enemy goes to before leaving the screen
         int screenPoints;
@@ -25,6 +25,21 @@ namespace HunterGame
         int WindowY;
         //Destination
         float[] destination = new float[2];
+
+        Vector2 dest = new Vector2();
+        public Vector2 Destination
+        {
+            get { return dest; }
+            set { dest = value; }
+        }
+        public int KillWorth
+        {
+            get{return killWorth;}
+        }
+        public float Speed
+        {
+            get { return speed; }
+        }
         
         public int ScreenPoints
         {

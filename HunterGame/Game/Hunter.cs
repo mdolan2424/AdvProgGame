@@ -18,7 +18,7 @@ namespace HunterGame
         //iterator for enemies in update
         int iterator = 0;
         //Dictionary for containing enemy spawns
-        List<EnemySubclass> EnemyCont;
+       
         List<Vector2> EnemyVectors = new List<Vector2>();
         SpawnerProto Proto;
         //Vector's for First 5 enemies
@@ -175,7 +175,6 @@ namespace HunterGame
             }
 
             controller.updateEnemies();
-            EnemyCont = controller.EnemiesOnScreen;
             EnemyVectors = controller.EnemiesVector;
             
 
