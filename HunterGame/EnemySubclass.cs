@@ -94,7 +94,7 @@ namespace HunterGame
         }
 
         //Method for setting all the appropriate settings based on difficulty setting
-        public void setDifficultyAttribs(int speed, int killWorth, int screenPoints)
+        public void setDifficultyAttribs(float speed, int killWorth, int screenPoints)
         {
             //Generate random starting position for the enemy
             Random Ran = new Random();

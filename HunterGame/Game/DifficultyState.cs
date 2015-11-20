@@ -7,12 +7,12 @@ namespace HunterGame
 {
     public abstract class DifficultyState
     {
-        protected int enemySpeed;
+        protected float enemySpeed;
         protected int maxEnemies;
         protected int enemyScreenPts;
         protected int enemyKillWorth;
     
-        public int EnemySpeed
+        public float EnemySpeed
         {
             get { return enemySpeed; }
         }

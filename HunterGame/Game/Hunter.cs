@@ -151,46 +151,46 @@ namespace HunterGame
             else
             {
                 
-            enemySpawnTime += gameTime.ElapsedGameTime.TotalSeconds;
-            itemSpawnTime += gameTime.ElapsedGameTime.TotalSeconds;
+                enemySpawnTime += gameTime.ElapsedGameTime.TotalSeconds;
+                itemSpawnTime += gameTime.ElapsedGameTime.TotalSeconds;
 
            
-            controller.updateEnemies();
-            EnemyVectors = controller.EnemiesVector;
+                controller.updateEnemies();
+                EnemyVectors = controller.EnemiesVector;
 
-            enemySpawnTime += gameTime.ElapsedGameTime.TotalSeconds;
-            if (enemySpawnTime > 2)
-            {
-                controller.spawnEnemy();
-                enemySpawnTime = 0;
-            }
+                enemySpawnTime += gameTime.ElapsedGameTime.TotalSeconds;
+                if (enemySpawnTime > 2)
+                {
+                    controller.spawnEnemy();
+                    enemySpawnTime = 0;
+                }
 
-            controller.updateEnemies();
-            EnemyVectors = controller.EnemiesVector;
+                controller.updateEnemies();
+                EnemyVectors = controller.EnemiesVector;
 
-            if (itemSpawnTime > 30)
-            {
-                String imageLocation = controller.spawnItem();
-                itemImage = Content.Load<Texture2D>(imageLocation);
-                itemSpawnTime = 0;
-            }
+                if (itemSpawnTime > 30)
+                {
+                    String imageLocation = controller.spawnItem();
+                    itemImage = Content.Load<Texture2D>(imageLocation);
+                    itemSpawnTime = 0;
+                }
 
-            //check if mouse click
-            if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
-            {
+                //check if mouse click
+                if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
+                {
 
-                Point mousePosition = new Point(currentMouseState.X, currentMouseState.Y);
-                //check if an object was shot
-                controller.checkObjectShot(mousePosition);
-            }
-
-
+                    Point mousePosition = new Point(currentMouseState.X, currentMouseState.Y);
+                    //check if an object was shot
+                    controller.checkObjectShot(mousePosition);
+                }
 
 
-                    
 
 
-            base.Update(gameTime);
+                 
+
+
+                base.Update(gameTime);
                 
             }
         }

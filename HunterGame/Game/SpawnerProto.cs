@@ -17,6 +17,7 @@ namespace HunterGame
         {
             this.WindowX = WindowX;
             this.WindowY = WindowY;
+            Original = new EnemySubclass(WindowX,WindowY);
         }
 
         
@@ -28,6 +29,16 @@ namespace HunterGame
 
             return ClonedSource.CloneCopy();
 
+        }
+
+        public EnemySubclass spawnEnemy(DifficultyState state)
+        {
+            //create our clone
+            EnemySubclass EnemyClone = (EnemySubclass)getEnemy(Original);
+            //Set the attribs each time we add to the initial area
+            EnemyClone.setDifficultyAttribs(state.EnemySpeed, state.EnemyKillWorth, state.EnemyScreenPts);
+
+            return EnemyClone;
         }
 
         //This is our class for returning our cloned enemy. May be changed in the future

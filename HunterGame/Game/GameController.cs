@@ -19,7 +19,6 @@ namespace HunterGame
         private int windowWidth;
         private DifficultyContext diffContext;
         private SpawnerProto spawner;
-        private Queue<EnemySubclass> enemyQueue;
         private List<Vector2> enemiesVector;
         private List<EnemySubclass> enemiesOnScreen;
         private Random rand = new Random();
@@ -50,8 +49,8 @@ namespace HunterGame
             //player, enemies, score, items.
             player = new Player(3);
             diffContext = new DifficultyContext(player.PlayerScore);
+            player.PlayerScore.register(diffContext);
             spawner = new SpawnerProto(windowX,windowY);
-            enemyQueue = new Queue<EnemySubclass>();
             
             enemiesVector = new List<Vector2>();
             enemiesOnScreen = new List<EnemySubclass>();
@@ -60,9 +59,7 @@ namespace HunterGame
 
             windowHeight = windowY;
             windowWidth = windowX;
-            //initialize enemy queue
-            fillEnemyQueue();
-            //spawnEnemies();
+            
 
 
             items = new ItemManager();
@@ -80,9 +77,10 @@ namespace HunterGame
                 
                 if (rect.Contains(enemiesVector[i]) && !enemyShot)
                 {
-                    
+                    player.PlayerScore.gainScore(enemiesOnScreen[i].KillWorth);
                     enemiesVector.Remove(enemiesVector[i]);
                     enemiesOnScreen.Remove(enemiesOnScreen[i]);
+                    
                     //prevents multiple enemies and items from being shot.
                     enemyShot = true;
                 }
@@ -92,8 +90,7 @@ namespace HunterGame
             if (rect.Contains(items.getPosition()) && !enemyShot)
             {
                 
-                //spawn a random item and draw to screen.
-                
+                //spawn a random item and draw to screen.                
                 IItem item = items.getItem();
                 player.changeLives(item.increaseLives());
                 player.changePower(item.powerUp());
@@ -103,41 +100,24 @@ namespace HunterGame
 
         }
 
-        public void fillEnemyQueue()
-        {
-           Dictionary<int, EnemySubclass> enemyDict =  spawner.getClonedEnemy(maxEnemies,diffContext.getState());
-
-           foreach(int key in enemyDict.Keys)
-           {
-               
-               enemyQueue.Enqueue(enemyDict[key]);
-           }            
-           
-        }
+      
 
         public void spawnEnemy()
         {
             
-            if(enemyQueue.Count>0)
+            if(enemiesOnScreen.Count< maxEnemies)
             {
-                if(enemiesOnScreen.Count< maxEnemies)
-                {
-                    EnemySubclass enemy = enemyQueue.Dequeue();
-                    int[] Start = enemy.getStartPos();
-                    Vector2 CurrentEnemyVector = new Vector2(Start[0], Start[1]);  
+                EnemySubclass enemy = spawner.spawnEnemy(diffContext.getState());
+                int[] Start = enemy.getStartPos();
+                Vector2 CurrentEnemyVector = new Vector2(Start[0], Start[1]);  
                     
-                    enemy.Destination = createDestination(Start[0],Start[1]);
+                enemy.Destination = createDestination(Start[0],Start[1]);
                     
-                        enemiesVector.Add(CurrentEnemyVector);
-                        enemiesOnScreen.Add(enemy);
+                    enemiesVector.Add(CurrentEnemyVector);
+                    enemiesOnScreen.Add(enemy);
                    
-                }
             }
-            else
-            {
-                fillEnemyQueue();
-                spawnEnemy();
-            }
+            
         }
         public void updateEnemies()
         {
@@ -278,6 +258,7 @@ namespace HunterGame
             paused = false;
             //resume playing any stopped audio, visual effects, etc.
         }
+
         //main portion of logic for checking if game is paused
         public bool checkPauseKey(KeyboardState keyboardState)
         {
