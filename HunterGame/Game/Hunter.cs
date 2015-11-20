@@ -136,51 +136,59 @@ namespace HunterGame
             currentMouseState = Mouse.GetState();
 
             //update mouse sprite position.  Image is drawn from bottom right so we subtract
-            cursor.X = currentMouseState.X-(crosshair.Width/2);
-            cursor.Y = currentMouseState.Y-(crosshair.Height/2);
+            cursor.X = currentMouseState.X - (crosshair.Width / 2);
+            cursor.Y = currentMouseState.Y - (crosshair.Height / 2);
 
             //check for a paused key press.
-            
-                if (currentKeyboardState.IsKeyDown(Keys.Escape) && oldKeyboardState.IsKeyUp(Keys.Escape))
+
+            paused = controller.checkPauseKey(currentKeyboardState);
+
+
+            // If the user hasn't paused, Update normally
+            if (paused)
+            {
+                base.Update(gameTime);
+
+            }
+            else
+            {
+
+
+                if (currentKeyboardState.IsKeyDown(Keys.W) && oldKeyboardState.IsKeyUp(Keys.W))
                 {
-                    paused = true;
-                    Exit();
+                    //check if time to spawn an item
+
+                    itemImage = Content.Load<Texture2D>(controller.spawnItem());
+                    itemVector = controller.updateItem();
+                    itemappeared = true;
+
+
                 }
 
-            if (currentKeyboardState.IsKeyDown(Keys.W) && oldKeyboardState.IsKeyUp(Keys.W))
-            {
-                //check if time to spawn an item
-                
-                itemImage = Content.Load<Texture2D>(controller.spawnItem());
-                itemVector = controller.updateItem();
-                itemappeared = true;
-                
-                
-            }
-            
-            enemySpawnTime += gameTime.ElapsedGameTime.TotalSeconds;
-            if(enemySpawnTime > 2)
-            {
-                controller.spawnEnemy();
-                enemySpawnTime = 0;
-            }
+                enemySpawnTime += gameTime.ElapsedGameTime.TotalSeconds;
+                if (enemySpawnTime > 2)
+                {
+                    controller.spawnEnemy();
+                    enemySpawnTime = 0;
+                }
 
-            controller.updateEnemies();
-            EnemyVectors = controller.EnemiesVector;
-            
+                controller.updateEnemies();
+                EnemyVectors = controller.EnemiesVector;
 
-            //check if mouse click
-            if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
-            {
-                Console.Write(cursor.X);
-                
-                Point mousePosition = new Point(currentMouseState.X,currentMouseState.Y);
-                controller.checkObjectShot(mousePosition);
-                
 
+                //check if mouse click
+                if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
+                {
+                    Console.Write(cursor.X);
+
+                    Point mousePosition = new Point(currentMouseState.X, currentMouseState.Y);
+                    controller.checkObjectShot(mousePosition);
+
+
+                }
+
+                base.Update(gameTime);
             }
-            
-            base.Update(gameTime);
         }
 
 
