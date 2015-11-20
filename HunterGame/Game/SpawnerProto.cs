@@ -73,6 +73,8 @@ namespace HunterGame
             return returnDict;
         }
 
+
+
         //For testing purposes, We return the Original 'EnemyObject' that we used for cloning
         public EnemySubclass getOriginal()
         {

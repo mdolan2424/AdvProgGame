@@ -99,7 +99,7 @@ namespace HunterGame
             //Generate random starting position for the enemy
             Random Ran = new Random();
             
-            this.StartX = Ran.Next(this.WindowX); //We do this to make sure it starts off screen.
+            this.StartX = Ran.Next(this.WindowX) * -1; //We do this to make sure it starts off screen.
             this.StartY = Ran.Next(this.WindowY);
 
             //set destination
