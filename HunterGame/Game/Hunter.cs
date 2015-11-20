@@ -136,48 +136,63 @@ namespace HunterGame
             currentMouseState = Mouse.GetState();
 
             //update mouse sprite position.  Image is drawn from bottom right so we subtract
-            cursor.X = currentMouseState.X-(crosshair.Width/2);
-            cursor.Y = currentMouseState.Y-(crosshair.Height/2);
+            cursor.X = currentMouseState.X - (crosshair.Width / 2);
+            cursor.Y = currentMouseState.Y - (crosshair.Height / 2);
 
             //check for a paused key press.
-            
-                if (currentKeyboardState.IsKeyDown(Keys.Escape) && oldKeyboardState.IsKeyUp(Keys.Escape))
-                {
-                    paused = true;
-                    Exit();
-                }
+            paused = controller.checkPauseKey(currentKeyboardState);
 
-            
+            // If the user hasn't paused, Update normally
+            if (paused)
+            {
+                base.Update(gameTime);
+
+            }
+            else
+            {
+                
             enemySpawnTime += gameTime.ElapsedGameTime.TotalSeconds;
             itemSpawnTime += gameTime.ElapsedGameTime.TotalSeconds;
 
-            if(enemySpawnTime > 2)
+           
+            controller.updateEnemies();
+            EnemyVectors = controller.EnemiesVector;
+
+            enemySpawnTime += gameTime.ElapsedGameTime.TotalSeconds;
+            if (enemySpawnTime > 2)
             {
                 controller.spawnEnemy();
                 enemySpawnTime = 0;
             }
 
-            if(itemSpawnTime > 30)
+            controller.updateEnemies();
+            EnemyVectors = controller.EnemiesVector;
+
+            if (itemSpawnTime > 30)
             {
                 String imageLocation = controller.spawnItem();
                 itemImage = Content.Load<Texture2D>(imageLocation);
                 itemSpawnTime = 0;
             }
-            controller.updateEnemies();
-            EnemyVectors = controller.EnemiesVector;
-            
 
             //check if mouse click
             if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
             {
-                
-                Point mousePosition = new Point(currentMouseState.X,currentMouseState.Y);
+
+                Point mousePosition = new Point(currentMouseState.X, currentMouseState.Y);
                 //check if an object was shot
                 controller.checkObjectShot(mousePosition);
+            }
+
+
+
+
+                    
+
+
+            base.Update(gameTime);
                 
             }
-            
-            base.Update(gameTime);
         }
 
 
