@@ -21,6 +21,16 @@ namespace HunterGame.Game.Items
             {
                 return new LifePotion();
             }
+
+            else if(item == 2)
+            {
+                return new PowerUp();
+            }
+
+            else if(item == 3)
+            {
+                return new Weapon();
+            }
             
             return null;
         }

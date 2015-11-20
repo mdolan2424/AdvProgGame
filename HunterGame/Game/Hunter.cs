@@ -38,15 +38,14 @@ namespace HunterGame
         private Vector2 livesVector;
         //pause
         bool paused;
-
-        //itemappeared
-        bool itemappeared = false;
+        
         //enemies
         Texture2D EnemyImage;
 
         //items
         Texture2D itemImage;
         Vector2 itemVector;
+
         //use item
         Player player;
 
@@ -54,6 +53,7 @@ namespace HunterGame
 
         double enemySpawnTime = 0;
         double itemSpawnTime = 0;
+
         ItemManager items;
         public Hunter()
         {
@@ -126,7 +126,7 @@ namespace HunterGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // TODO: Add your update logic here
+           
 
             oldKeyboardState = currentKeyboardState;
             oldMouseState = currentMouseState;
@@ -147,24 +147,22 @@ namespace HunterGame
                     Exit();
                 }
 
-            if (currentKeyboardState.IsKeyDown(Keys.W) && oldKeyboardState.IsKeyUp(Keys.W))
-            {
-                //check if time to spawn an item
-                
-                itemImage = Content.Load<Texture2D>(controller.spawnItem());
-                itemVector = controller.updateItem();
-                itemappeared = true;
-                
-                
-            }
             
             enemySpawnTime += gameTime.ElapsedGameTime.TotalSeconds;
+            itemSpawnTime += gameTime.ElapsedGameTime.TotalSeconds;
+
             if(enemySpawnTime > 2)
             {
                 controller.spawnEnemy();
                 enemySpawnTime = 0;
             }
 
+            if(itemSpawnTime > 30)
+            {
+                String imageLocation = controller.spawnItem();
+                itemImage = Content.Load<Texture2D>(imageLocation);
+                itemSpawnTime = 0;
+            }
             controller.updateEnemies();
             EnemyVectors = controller.EnemiesVector;
             
@@ -172,12 +170,11 @@ namespace HunterGame
             //check if mouse click
             if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
             {
-                Console.Write(cursor.X);
                 
                 Point mousePosition = new Point(currentMouseState.X,currentMouseState.Y);
+                //check if an object was shot
                 controller.checkObjectShot(mousePosition);
                 
-
             }
             
             base.Update(gameTime);
@@ -194,18 +191,23 @@ namespace HunterGame
             spriteBatch.Begin();
             spriteBatch.Draw(crosshair, cursor);
 
-            if (itemappeared)
+            if (controller.itemAppeared == true)
             {
                 //move item
                 itemVector = controller.updateItem();
+
+                //Centers appearance of item on draw point so collision can be compared regardless of size of image
+                Vector2 itemCenter = new Vector2((itemVector.X - itemImage.Width / 2), (itemVector.Y - itemImage.Height / 2));
                 //draw item
-                spriteBatch.Draw(itemImage, itemVector);
+                spriteBatch.Draw(itemImage, itemCenter);
 
             }
 
             //draw our enemies
             for (int i = EnemyVectors.Count-1; i >0; i--)
             {
+                
+                //Centers appearance of enemy on draw point so collision can be compared regardless of size of image
                 
                 Vector2 centered = new Vector2(EnemyVectors[i].X - (EnemyImage.Width / 2), EnemyVectors[i].Y - (EnemyImage.Height / 2));
                 spriteBatch.Draw(EnemyImage, centered);

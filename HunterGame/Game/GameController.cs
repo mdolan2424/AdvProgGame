@@ -22,7 +22,8 @@ namespace HunterGame
         private List<Vector2> enemiesVector;
         private List<EnemySubclass> enemiesOnScreen;
         private Random rand = new Random();
-
+        
+        
         
         //items
         private ItemManager items;
@@ -35,6 +36,8 @@ namespace HunterGame
         {
             get { return enemiesVector; }
         }
+
+        public bool itemAppeared { get; set; }
 
         public GameController (int windowX, int windowY)
         {
@@ -59,39 +62,39 @@ namespace HunterGame
 
 
             items = new ItemManager();
-             
+            itemAppeared = false;
             
         }
 
         public void checkObjectShot(Point point)
         {
             bool enemyShot = false;
-            Rectangle rect = new Rectangle(point.X, point.Y, 50, 50); //buggy at the moment, doesn't center on image.
+            Rectangle rect = new Rectangle(point.X, point.Y, 50, 50); 
 
             for (int i = enemiesOnScreen.Count - 1; i > 0; i--)
             {                
                 
                 if (rect.Contains(enemiesVector[i]) && !enemyShot)
                 {
-                    Console.Write("Enemy shot"); //remove this later.
+                    
                     enemiesVector.Remove(enemiesVector[i]);
                     enemiesOnScreen.Remove(enemiesOnScreen[i]);
+                    //prevents multiple enemies and items from being shot.
                     enemyShot = true;
                 }
-
-
+                
             }
-
-            //check if item shot
-            if (rect.Contains(items.position) && !enemyShot)
+            
+            if (rect.Contains(items.getPosition()) && !enemyShot)
             {
                 
                 //spawn a random item and draw to screen.
-                Console.Write("Item Shot"); // remove this later
+                
                 IItem item = items.getItem();
                 player.changeLives(item.increaseLives());
                 player.changePower(item.powerUp());
-                
+                //destroy item
+                itemAppeared = false;
             }
 
         }
@@ -124,7 +127,6 @@ namespace HunterGame
                         enemiesVector.Add(CurrentEnemyVector);
                         enemiesOnScreen.Add(enemy);
                    
-                    
                 }
             }
             else
@@ -260,7 +262,7 @@ namespace HunterGame
 
         public Vector2 updateItem()
         {
-            items.changePosition(1, 1);
+            items.changePosition();
             return items.getPosition();
         }
 
@@ -268,6 +270,7 @@ namespace HunterGame
         public String spawnItem()
         {
             items.createRandomItem();
+            itemAppeared = true;
             return items.getImage();
             
         }

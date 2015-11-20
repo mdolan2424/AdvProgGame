@@ -50,7 +50,7 @@ namespace HunterGame.Game.Items
 
         public int weaponUpgrade()
         {
-            throw new NotImplementedException();
+            return 1;
         }
     }
 

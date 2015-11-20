@@ -5,8 +5,5 @@
   <Config />
   <SourceFiles>
     <File>D:/Documents/Visual Studio 2015/Projects/HunterGame/HunterGame/Content/Graphics/rubber-duck-icon.png</File>
-    <File>D:/Documents/Visual Studio 2015/Projects/HunterGame/HunterGame/Content/Graphics/heart.png</File>
-    <File>D:/Documents/Visual Studio 2015/Projects/HunterGame/HunterGame/Content/Graphics/HuntingRifle.png</File>
-    <File>D:/Documents/Visual Studio 2015/Projects/HunterGame/HunterGame/Content/Graphics/greenpotion.png</File>
   </SourceFiles>
 </SourceFileCollection>

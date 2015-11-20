@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
@@ -19,38 +17,42 @@ namespace HunterGame.Game.Items
         
         IItem spawnedItem;
         ItemFactory factory;
-
-        //current item displayed on screen
-        Texture2D texture;
-        public Vector2 position;
         
+        private Vector2 position;
         private int nextX;
         private int nextY;
 
         const int maxPosX = 1080;
         const int maxPosY = 600;
 
+        Random rand;
         public ItemManager()
         {
             itemList = new List<IItem>();
-            
+            rand = new Random();
             nextX = 1;
             nextY = 1;
             //default spawn point
             position = new Vector2(0,0);
             factory = new ItemFactory();
         }
-        
+       
         //get a random item
         public void createRandomItem()
         {
             
             //static for now.
-            spawnedItem = factory.getItem(1);
-
+            spawnedItem = factory.getItem(rand.Next(1,4));
+            position = new Vector2(rand.Next(11, 1049), rand.Next(11, 579));
             itemList.Add(spawnedItem);
         }
 
+        public void destroyItem()
+        {
+            //set defaults
+            spawnedItem = null;
+
+        }
         public IItem getItem()
         {
             //use item based on full or empty attributes
@@ -65,9 +67,9 @@ namespace HunterGame.Game.Items
         }
 
 
-        public void changePosition(int x, int y)
+        public void changePosition()
         {
-            Random rand = new Random();
+            
             
             if (position.X > 1050 || position.X < 10)
             {
@@ -89,7 +91,7 @@ namespace HunterGame.Game.Items
         {
             return position;
         }
-
+        
         public string getImage()
         {
             return spawnedItem.image;
