@@ -27,7 +27,6 @@ namespace HunterGame
         //variables pertaining to pausing the game
         private bool paused = false;
         private bool pauseKeyDown = false;
-        private bool pausedForGuide = false;
 
         //items
         private ItemManager items;
@@ -284,13 +283,15 @@ namespace HunterGame
             bool pauseKeyDownThisFrame = (keyboardState.IsKeyDown(Keys.P));
             // If key was not down before, but is down now, we toggle the
             // pause setting
-            if (pauseKeyDownThisFrame)
+            
+            if (pauseKeyDownThisFrame && pauseKeyDown)
             {
                 if (!paused)
                     BeginPause(true);
                 else
                     EndPause();
             }
+            pauseKeyDown = pauseKeyDownThisFrame;
             
             return paused;
         }
