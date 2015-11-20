@@ -50,6 +50,7 @@
     <Compile Include="Game\Items\ItemFactory.cs" />
     <Compile Include="Game\Items\ItemManager.cs" />
     <Compile Include="Game\Items\LifePotion.cs" />
+    <Compile Include="Game\Items\PowerUp.cs" />
     <Compile Include="Game\Items\Weapon.cs" />
     <Compile Include="Game\Players\Firing.cs" />
     <Compile Include="Game\Players\Player.cs" />
@@ -76,7 +77,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Graphics\circle-03.png" />
-    <Content Include="Content\Graphics\red-potion.png" />
     <Content Include="Content\Graphics\rubber-duck-icon.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>

@@ -21,9 +21,6 @@ namespace HunterGame.Game.Items
             {
                 return new LifePotion();
             }
-
-           
-
             
             return null;
         }

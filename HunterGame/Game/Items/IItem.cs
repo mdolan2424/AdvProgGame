@@ -12,8 +12,12 @@ namespace HunterGame.Game.Items
     {
         string name { get; }
         string image { get; }
-        int worth { get; }
-        int apply();
+
+
+        int increaseLives();
+        int weaponUpgrade();
+        int powerUp();
+
         
         
         

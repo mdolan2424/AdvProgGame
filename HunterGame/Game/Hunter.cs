@@ -52,8 +52,8 @@ namespace HunterGame
 
         SpriteFont font;
 
-        double spawnTime = 0;
-
+        double enemySpawnTime = 0;
+        double itemSpawnTime = 0;
         ItemManager items;
         public Hunter()
         {
@@ -63,7 +63,6 @@ namespace HunterGame
             graphics.PreferredBackBufferHeight = 600;
             graphics.PreferredBackBufferWidth = 1080;
 
-            
         }
 
         /// <summary>
@@ -158,20 +157,12 @@ namespace HunterGame
                 
                 
             }
-
-            if (currentKeyboardState.IsKeyDown(Keys.E) && oldKeyboardState.IsKeyUp(Keys.E))
-            {
-               
-                //print change in lives for player
-                player.changeLives(items.useItem());
-                Console.Write(player.lives);
-            }
             
-            spawnTime += gameTime.ElapsedGameTime.TotalSeconds;
-            if(spawnTime>2)
+            enemySpawnTime += gameTime.ElapsedGameTime.TotalSeconds;
+            if(enemySpawnTime > 2)
             {
                 controller.spawnEnemy();
-                spawnTime = 0;
+                enemySpawnTime = 0;
             }
 
             controller.updateEnemies();
@@ -181,7 +172,9 @@ namespace HunterGame
             //check if mouse click
             if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
             {
-                Point mousePosition = new Point(currentMouseState.X, currentMouseState.Y);
+                Console.Write(cursor.X);
+                
+                Point mousePosition = new Point(currentMouseState.X,currentMouseState.Y);
                 controller.checkObjectShot(mousePosition);
                 
 
@@ -213,7 +206,10 @@ namespace HunterGame
             //draw our enemies
             for (int i = EnemyVectors.Count-1; i >0; i--)
             {
-                spriteBatch.Draw(EnemyImage, EnemyVectors[i]);
+                
+                Vector2 centered = new Vector2(EnemyVectors[i].X - (EnemyImage.Width / 2), EnemyVectors[i].Y - (EnemyImage.Height / 2));
+                spriteBatch.Draw(EnemyImage, centered);
+                
             }
 
 

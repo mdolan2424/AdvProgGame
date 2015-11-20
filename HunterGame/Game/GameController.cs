@@ -65,29 +65,33 @@ namespace HunterGame
 
         public void checkObjectShot(Point point)
         {
-            
-            Rectangle rect = new Rectangle(point.X, point.Y, 60, 60); //buggy at the moment, doesn't center on image.
+            bool enemyShot = false;
+            Rectangle rect = new Rectangle(point.X, point.Y, 50, 50); //buggy at the moment, doesn't center on image.
 
             for (int i = enemiesOnScreen.Count - 1; i > 0; i--)
             {                
                 
-                if (rect.Contains(enemiesVector[i]))
+                if (rect.Contains(enemiesVector[i]) && !enemyShot)
                 {
                     Console.Write("Enemy shot"); //remove this later.
                     enemiesVector.Remove(enemiesVector[i]);
                     enemiesOnScreen.Remove(enemiesOnScreen[i]);
+                    enemyShot = true;
                 }
 
 
             }
 
             //check if item shot
-            if (rect.Contains(items.position))
+            if (rect.Contains(items.position) && !enemyShot)
             {
+                
                 //spawn a random item and draw to screen.
-                Console.Write("Item Shot"); // remove this
-                player.changeLives(items.useItem());
-
+                Console.Write("Item Shot"); // remove this later
+                IItem item = items.getItem();
+                player.changeLives(item.increaseLives());
+                player.changePower(item.powerUp());
+                
             }
 
         }

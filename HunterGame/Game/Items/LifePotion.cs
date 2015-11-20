@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+
 namespace HunterGame.Game.Items
 {
     public class LifePotion : IItem
     {
-        private int worth;
         public string name
         {
             get; set;
@@ -22,27 +20,14 @@ namespace HunterGame.Game.Items
                 return this.image;
             }
         }
-
-        int IItem.worth
-        {
-            get
-            {
-                return this.worth;
-            }
-        }
-
-        private string image;
-        public Texture2D texture;
-        public Vector2 position;
-
         
-
+        private string image;
+        
         public LifePotion()
         {
-            this.worth = 1;
-            this.name = "Standard Life Potion";
-            position = new Vector2(300, 400);
-            image = "Graphics\\red-potion";
+            
+            this.name = "Life Increase";
+            image = "Graphics\\heart";
 
         }
 
@@ -50,11 +35,21 @@ namespace HunterGame.Game.Items
         {
             return this.image;
         }
-        public int apply()
-        {
-            return worth;
-        }
 
         
+        public int increaseLives()
+        {
+            return 1;
+        }
+
+        public int powerUp()
+        {
+            return 0;
+        }
+
+        public int weaponUpgrade()
+        {
+            return 0;
+        }
     }
 }

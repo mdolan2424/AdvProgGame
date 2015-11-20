@@ -37,7 +37,7 @@ namespace HunterGame.Game.Items
             nextX = 1;
             nextY = 1;
             //default spawn point
-            position = new Vector2(300, 400);
+            position = new Vector2(0,0);
             factory = new ItemFactory();
         }
         
@@ -51,13 +51,10 @@ namespace HunterGame.Game.Items
             itemList.Add(spawnedItem);
         }
 
-        public int useItem()
+        public IItem getItem()
         {
-            
-            int worth = spawnedItem.worth;
-            itemList.Remove(spawnedItem);
-            //destroy item
-            return worth;
+            //use item based on full or empty attributes
+            return spawnedItem;
         }
 
       
