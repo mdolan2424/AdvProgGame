@@ -46,6 +46,9 @@ namespace HunterGame
         Texture2D itemImage;
         Vector2 itemVector;
 
+        //background
+        Texture2D Background;
+
         //use item
         Player player;
 
@@ -108,6 +111,9 @@ namespace HunterGame
             //for enemies
             
             EnemyImage = Content.Load<Texture2D>("Graphics\\rubber-duck-icon");
+
+            //load background
+            Background = Content.Load<Texture2D>("Graphics\\background");
         }
 
         /// <summary>
@@ -204,6 +210,9 @@ namespace HunterGame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
+            //draw the background first
+            spriteBatch.Draw(Background, new Rectangle(0, 0, Background.Width + 200, Background.Height), Color.White);
+
             spriteBatch.Draw(crosshair, cursor);
 
             if (controller.itemAppeared == true)
