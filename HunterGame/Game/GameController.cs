@@ -66,8 +66,8 @@ namespace HunterGame
         public void checkObjectShot(Point point)
         {
             bool enemyShot = false;
-            Rectangle rect = new Rectangle(point.X, point.Y, 50, 50);
-          
+            Rectangle rect = new Rectangle(point.X-60, point.Y-60, 120, 120);
+            
 
             for (int i = enemiesOnScreen.Count - 1; i > 0; i--)
             {                
