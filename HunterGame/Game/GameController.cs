@@ -23,10 +23,7 @@ namespace HunterGame
         private List<EnemySubclass> enemiesOnScreen;
         private Random rand = new Random();
 
-        //variables pertaining to pausing the game
-        private bool paused = false;
-        private bool pauseKeyDown = false;
-
+        
         //items
         private ItemManager items;
 
@@ -69,7 +66,8 @@ namespace HunterGame
         public void checkObjectShot(Point point)
         {
             bool enemyShot = false;
-            Rectangle rect = new Rectangle(point.X, point.Y, 50, 50); 
+            Rectangle rect = new Rectangle(point.X, point.Y, 50, 50);
+          
 
             for (int i = enemiesOnScreen.Count - 1; i > 0; i--)
             {                
@@ -242,43 +240,7 @@ namespace HunterGame
             
         }
 
-        //Game logic pertaining to game pause
-
-            //to begin pause for game
-        private void BeginPause(bool UserInitiated)
-        {
-            paused = true;
-           //May add code for stopping audio, visual effects in the future
-        }
-        //to end the pause duration
-        private void EndPause()
-        {
-            
-            paused = false;
-            //resume playing any stopped audio, visual effects, etc.
-        }
-
-        //main portion of logic for checking if game is paused
-        public bool checkPauseKey(KeyboardState keyboardState)
-        {
-            bool pauseKeyDownThisFrame = (keyboardState.IsKeyDown(Keys.P));
-            // If key was not down before, but is down now, we toggle the
-            // pause setting
-            
-            if (pauseKeyDownThisFrame && pauseKeyDown)
-            {
-                if (!paused)
-                    BeginPause(true);
-                else
-                    EndPause();
-            }
-            pauseKeyDown = pauseKeyDownThisFrame;
-            
-            return paused;
-        }
-
-
-
+       
         public Vector2 updateItem()
         {
             items.changePosition();

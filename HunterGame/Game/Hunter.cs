@@ -38,6 +38,7 @@ namespace HunterGame
         private Vector2 livesVector;
         //pause
         bool paused;
+        bool pauseKeyDown;
         
         //enemies
         Texture2D EnemyImage;
@@ -88,6 +89,7 @@ namespace HunterGame
             //initialize cursor
             cursor = new Vector2(graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height);
             paused = false;
+            pauseKeyDown = false;
             scoreVector = new Vector2(graphics.GraphicsDevice.Viewport.Width - 150, graphics.GraphicsDevice.Viewport.Height - 40);
             livesVector = new Vector2(graphics.GraphicsDevice.Viewport.Width - 300, graphics.GraphicsDevice.Viewport.Height - 40);
 
@@ -146,7 +148,8 @@ namespace HunterGame
             cursor.Y = currentMouseState.Y - (crosshair.Height / 2);
 
             //check for a paused key press.
-            paused = controller.checkPauseKey(currentKeyboardState);
+            //paused = checkPauseKey(currentKeyboardState);
+            checkPauseKey(currentKeyboardState);
 
             // If the user hasn't paused, Update normally
             if (paused)
@@ -260,6 +263,32 @@ namespace HunterGame
         {
             this.Window.Title = "Paused";
             base.OnDeactivated(sender, args);
+        }
+
+        private void checkPauseKey(KeyboardState keyboardState)
+        {
+            bool pauseKeyDownThisFrame = (keyboardState.IsKeyDown(Keys.P));
+            // If key was not down before, but is down now, we toggle the
+            // pause setting
+            if (!pauseKeyDown && pauseKeyDownThisFrame)
+            {
+                if (!paused)
+                    BeginPause(true);
+                else
+                    EndPause();
+            }
+            pauseKeyDown = pauseKeyDownThisFrame;
+        }
+        private void BeginPause(bool UserInitiated)
+        {
+            paused = true;
+            //TODO: Pause audio playback
+        }
+        private void EndPause()
+        {
+            //TODO: Resume audio
+           
+            paused = false;
         }
     }
 }
