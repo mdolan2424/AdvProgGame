@@ -8,5 +8,7 @@ namespace HunterGame.Game.Players
     interface IPlayerState
     {
         int shoot();
+        
+
     }
 }

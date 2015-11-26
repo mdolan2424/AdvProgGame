@@ -52,7 +52,7 @@
     <Compile Include="Game\Items\LifePotion.cs" />
     <Compile Include="Game\Items\PowerUp.cs" />
     <Compile Include="Game\Items\Weapon.cs" />
-    <Compile Include="Game\Players\Firing.cs" />
+    <Compile Include="Game\Players\FiringState.cs" />
     <Compile Include="Game\Players\Player.cs" />
     <Compile Include="Game\Driver.cs" />
     <Compile Include="Game\InputManager.cs" />
@@ -62,8 +62,8 @@
     <Compile Include="Game\Observer.cs" />
     <Compile Include="Game\Players\PlayerContext.cs" />
     <Compile Include="Game\Players\IPlayerState.cs" />
-    <Compile Include="Game\Players\Reloading.cs" />
-    <Compile Include="Game\Players\Stunned.cs" />
+    <Compile Include="Game\Players\ReloadingState.cs" />
+    <Compile Include="Game\Players\StunnedState.cs" />
     <Compile Include="Game\SpawnerProto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Game\Score.cs" />
