@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/matt/Documents/Visual Studio 2015/Projects/HunterGame/HunterGame/Content/Graphics/rubber-duck-icon.png</SourceFile>
-  <SourceTime>2015-11-20T14:57:23.1291163-07:00</SourceTime>
-  <DestFile>C:/Users/matt/Documents/Visual Studio 2015/Projects/HunterGame/HunterGame/Content/bin/Windows/Graphics/rubber-duck-icon.xnb</DestFile>
-  <DestTime>2015-11-20T14:57:55.9059841-07:00</DestTime>
+  <SourceFile>D:/UserFiles/HunterGame/HunterGame/HunterGame/Content/Graphics/rubber-duck-icon.png</SourceFile>
+  <SourceTime>2015-11-28T14:30:27.4749505-07:00</SourceTime>
+  <DestFile>D:/UserFiles/HunterGame/HunterGame/HunterGame/Content/bin/Windows/Graphics/rubber-duck-icon.xnb</DestFile>
+  <DestTime>2015-11-28T14:32:46.8225213-07:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2015-04-29T11:14:44-06:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

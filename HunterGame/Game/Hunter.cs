@@ -37,6 +37,7 @@ namespace HunterGame
         private Vector2 scoreVector;
         private Vector2 livesVector;
         private Vector2 notificationVector;
+        private Vector2 pauseVector;
 
         //pause
         bool paused;
@@ -102,6 +103,8 @@ namespace HunterGame
             scoreVector = new Vector2(graphics.GraphicsDevice.Viewport.Width - 150, graphics.GraphicsDevice.Viewport.Height - 40);
             livesVector = new Vector2(graphics.GraphicsDevice.Viewport.Width - 300, graphics.GraphicsDevice.Viewport.Height - 40);
             notificationVector = new Vector2(graphics.GraphicsDevice.Viewport.Width - 500, graphics.GraphicsDevice.Viewport.Height - 40);
+            //pause vector init
+            pauseVector = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2, graphics.GraphicsDevice.Viewport.Height / 2);
 
             elapsedtime = 0.0;
 
@@ -259,7 +262,14 @@ namespace HunterGame
             spriteBatch.DrawString(font, "Score: " + controller.getScore(), scoreVector, Color.Black);
             spriteBatch.DrawString(font, "Lives: " + controller.getLives(), livesVector, Color.Black);
             spriteBatch.DrawString(font, controller.notification, notificationVector, Color.Red);
+
+            //for pausing of the game
+            if(paused == true)
+            {
+                spriteBatch.DrawString(font, "PAUSED!", pauseVector, Color.Black);
+            }
             
+
             spriteBatch.End();
             
             base.Draw(gameTime);
@@ -277,6 +287,8 @@ namespace HunterGame
         protected override void OnDeactivated(object sender, EventArgs args)
         {
             this.Window.Title = "Paused";
+            
+
             base.OnDeactivated(sender, args);
         }
 
