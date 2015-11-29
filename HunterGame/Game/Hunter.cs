@@ -57,6 +57,7 @@ namespace HunterGame
         Player player;
 
         SpriteFont font;
+        SpriteFont MenuFont;
         //player status
         SpriteFont playerNotificationFont;
         double enemySpawnTime = 0;
@@ -122,6 +123,8 @@ namespace HunterGame
             
             crosshair = Content.Load<Texture2D>("Graphics\\circle-03");
             font = Content.Load<Microsoft.Xna.Framework.Graphics.SpriteFont>("SpriteFont1");
+            MenuFont = Content.Load<SpriteFont>("Graphics\\MenuFont");
+            
             //for enemies
             //player notification
             playerNotificationFont = Content.Load<Microsoft.Xna.Framework.Graphics.SpriteFont>("SpriteFont1");
@@ -266,7 +269,8 @@ namespace HunterGame
             //for pausing of the game
             if(paused == true)
             {
-                spriteBatch.DrawString(font, "PAUSED!", pauseVector, Color.Black);
+                
+                spriteBatch.DrawString(MenuFont, "PAUSED!", pauseVector, Color.Black);
             }
             
 
