@@ -25,6 +25,8 @@ namespace HunterGame
         int WindowY;
         //Destination
         float[] destination = new float[2];
+        
+
 
         Vector2 dest = new Vector2();
         public Vector2 Destination
@@ -99,7 +101,7 @@ namespace HunterGame
             //Generate random starting position for the enemy
             Random Ran = new Random();
             
-            this.StartX = Ran.Next(this.WindowX) * -1; //We do this to make sure it starts off screen.
+            this.StartX = 0; //We do this to make sure it starts off screen.            
             this.StartY = Ran.Next(this.WindowY);
 
             //set destination

@@ -256,6 +256,11 @@ namespace HunterGame
             
         }
         
+        public Boolean checkLives()
+        {
+            return (player.lives>0);
+        }
+
         public int getScore()
         {
             return player.PlayerScore.ScoreVal;
