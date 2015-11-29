@@ -8,10 +8,10 @@ namespace HunterGame.Game.Players
     class PlayerContext
     {
         private IPlayerState playerState;
-
+        
         public PlayerContext()
         {
-            playerState = new Firing();
+            playerState = null;
         }
 
         public void setState(IPlayerState state)
@@ -24,5 +24,6 @@ namespace HunterGame.Game.Players
             return playerState;
         }
 
+       
     }
 }

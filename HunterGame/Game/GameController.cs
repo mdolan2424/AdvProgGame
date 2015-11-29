@@ -23,7 +23,8 @@ namespace HunterGame
         private List<EnemySubclass> enemiesOnScreen;
         private Random rand = new Random();
 
-        
+        private double elapsedTime;
+        public string notification { get; set;}
         //items
         private ItemManager items;
 
@@ -51,49 +52,64 @@ namespace HunterGame
             enemiesVector = new List<Vector2>();
             enemiesOnScreen = new List<EnemySubclass>();
 
+            notification = "";
             
 
             windowHeight = windowY;
             windowWidth = windowX;
-            
-
 
             items = new ItemManager();
             itemAppeared = false;
-            
+
+            elapsedTime = 0;
         }
 
         public void checkObjectShot(Point point)
         {
             bool enemyShot = false;
             Rectangle rect = new Rectangle(point.X-60, point.Y-60, 120, 120);
-            
 
-            for (int i = enemiesOnScreen.Count - 1; i > 0; i--)
-            {                
-                
-                if (rect.Contains(enemiesVector[i]) && !enemyShot)
-                {
-                    player.PlayerScore.gainScore(enemiesOnScreen[i].KillWorth);
-                    enemiesVector.Remove(enemiesVector[i]);
-                    enemiesOnScreen.Remove(enemiesOnScreen[i]);
-                    
-                    //prevents multiple enemies and items from being shot.
-                    enemyShot = true;
-                }
-                
-            }
-            
-            if (rect.Contains(items.getPosition()) && !enemyShot)
+            if (player.shootEnemy()>= 1)
             {
-                
-                //spawn a random item and draw to screen.                
-                IItem item = items.getItem();
-                player.changeLives(item.increaseLives());
-                player.changePower(item.powerUp());
-                //destroy item
-                itemAppeared = false;
+
+                for (int i = enemiesOnScreen.Count - 1; i > 0; i--)
+                {
+
+                    if (rect.Contains(enemiesVector[i]) && !enemyShot)
+                    {
+                        player.checkDanger(enemiesOnScreen[i].KillWorth);
+                        player.PlayerScore.gainScore(enemiesOnScreen[i].KillWorth);
+                        enemiesVector.Remove(enemiesVector[i]);
+                        enemiesOnScreen.Remove(enemiesOnScreen[i]);
+
+                        //prevents multiple enemies and items from being shot.
+                        enemyShot = true;
+                        
+
+                    }
+
+
+                }
+
+
+                if (rect.Contains(items.getPosition()) && !enemyShot)
+                {
+
+                    //spawn a random item and draw to screen.                
+                    IItem item = items.getItem();
+                    player.changeLives(item.increaseLives());
+                    player.checkDanger(item.powerUp());
+                    //destroy item
+                    itemAppeared = false;
+                }
+
+
             }
+            {
+
+            }
+
+            notification = player.getState();
 
         }
 
@@ -264,6 +280,17 @@ namespace HunterGame
         {
             return player.lives;
         }
+
+       public void setTime(double time)
+        {
+            elapsedTime = time;
+        }
+
+        public void setPlayerState(string state)
+        {
+            
+        }
+        
         
     }
 }

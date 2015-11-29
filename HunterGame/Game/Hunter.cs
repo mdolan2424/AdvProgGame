@@ -36,6 +36,8 @@ namespace HunterGame
         private Texture2D crosshair;
         private Vector2 scoreVector;
         private Vector2 livesVector;
+        private Vector2 notificationVector;
+
         //pause
         bool paused;
         bool pauseKeyDown;
@@ -54,11 +56,18 @@ namespace HunterGame
         Player player;
 
         SpriteFont font;
-
+        //player status
+        SpriteFont playerNotificationFont;
         double enemySpawnTime = 0;
         double itemSpawnTime = 0;
 
         ItemManager items;
+
+        //pauses between clicks
+        double mouseClickRefresh = 0;
+
+        //elapsedTime to report to other classes
+        double elapsedtime;
         public Hunter()
         {
             //sets up window and Game
@@ -92,9 +101,9 @@ namespace HunterGame
             pauseKeyDown = false;
             scoreVector = new Vector2(graphics.GraphicsDevice.Viewport.Width - 150, graphics.GraphicsDevice.Viewport.Height - 40);
             livesVector = new Vector2(graphics.GraphicsDevice.Viewport.Width - 300, graphics.GraphicsDevice.Viewport.Height - 40);
+            notificationVector = new Vector2(graphics.GraphicsDevice.Viewport.Width - 500, graphics.GraphicsDevice.Viewport.Height - 40);
 
-            
-           
+            elapsedtime = 0.0;
 
             base.Initialize();
         }
@@ -111,7 +120,9 @@ namespace HunterGame
             crosshair = Content.Load<Texture2D>("Graphics\\circle-03");
             font = Content.Load<Microsoft.Xna.Framework.Graphics.SpriteFont>("SpriteFont1");
             //for enemies
-            
+            //player notification
+            playerNotificationFont = Content.Load<Microsoft.Xna.Framework.Graphics.SpriteFont>("SpriteFont1");
+
             EnemyImage = Content.Load<Texture2D>("Graphics\\rubber-duck-icon");
 
             //load background
@@ -135,10 +146,10 @@ namespace HunterGame
         protected override void Update(GameTime gameTime)
         {
            
-
             oldKeyboardState = currentKeyboardState;
             oldMouseState = currentMouseState;
-
+            elapsedtime += gameTime.ElapsedGameTime.TotalSeconds;
+            controller.setTime(elapsedtime);
             //mouse
             currentKeyboardState = Keyboard.GetState();
             currentMouseState = Mouse.GetState();
@@ -150,7 +161,7 @@ namespace HunterGame
             //check for a paused key press.
             //paused = checkPauseKey(currentKeyboardState);
             checkPauseKey(currentKeyboardState);
-
+            
             // If the user hasn't paused, Update normally
             if (paused)
             {
@@ -187,10 +198,13 @@ namespace HunterGame
                 //check if mouse click
                 if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
                 {
+                    
+                        Point mousePosition = new Point(currentMouseState.X, currentMouseState.Y);
+                        //check if an object was shot
+                        controller.checkObjectShot(mousePosition);
+                    
 
-                    Point mousePosition = new Point(currentMouseState.X, currentMouseState.Y);
-                    //check if an object was shot
-                    controller.checkObjectShot(mousePosition);
+                    
                 }
 
 
@@ -244,7 +258,8 @@ namespace HunterGame
 
             spriteBatch.DrawString(font, "Score: " + controller.getScore(), scoreVector, Color.Black);
             spriteBatch.DrawString(font, "Lives: " + controller.getLives(), livesVector, Color.Black);
-           
+            spriteBatch.DrawString(font, controller.notification, notificationVector, Color.Red);
+            
             spriteBatch.End();
             
             base.Draw(gameTime);

@@ -46,7 +46,7 @@ namespace HunterGame.Game.Items
 
         public int powerUp()
         {
-            return 1;
+            return -1;
         }
 
         public int weaponUpgrade()

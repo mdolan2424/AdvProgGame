@@ -10,18 +10,24 @@ namespace HunterGame
     {
         public string name { get; set; }
         public int lives { get; set; }
-
-        public int power { get; set; }
-
+        public int stunShots { get; set; }
         
+        public int ammo { get; set; }
+        private IPlayerState state;
+        //based on players current state
+        public int damage { get; set; }
+        private string stateText;
+        private PlayerContext context;
+        
+
         private Score score;
+
         public Score PlayerScore
         {
             get { return score; }
         }
 
-        //player state changes
-        private PlayerContext status;
+       
         
 
         public Player(int lives)
@@ -29,9 +35,9 @@ namespace HunterGame
             //defaults
             name = "";
             this.lives = lives;
-            this.power = 1;
+            this.damage = 1;
             score = new Score();
-            
+            state = new FiringState();
         }
         
         public void changeLives(int amount)
@@ -39,20 +45,37 @@ namespace HunterGame
             lives += amount;
         }
         
-        public void changePower(int amount)
+        public void reload()
         {
-            power += amount;
+            
         }
+        
 
         public int shootEnemy()
         {
-            IPlayerState state = status.getState();
-            //damage calculation
-            int damage = this.power * state.shoot();
-
-            return damage;
+            return state.shoot();
         }
 
+        //reports state back to controller
+        public string getState()
+        {
+            return state.ToString();
+        }
+        public void checkDanger(int killworth)
+        {
+            if (killworth == -1)
+            {
+                state = new StunnedState();
+                damage = state.shoot();
+                //stunned
+                
+            }
 
+            else
+            {
+                state = new FiringState();
+                damage = state.shoot();
+            }
+        }
     }
 }

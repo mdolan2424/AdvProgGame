@@ -5,21 +5,26 @@ using System.Text;
 
 namespace HunterGame.Game.Players
 {
-    class Firing : IPlayerState
+    class FiringState : IPlayerState
     {
-        int damage;
-        string notification;
-
-        public Firing()
+        private int damage;
+        private string notification;
+        public int stunShots { get; set; }
+        public FiringState()
         {
             damage = 1;
             notification = "";
-
         }
 
         public int shoot()
         {
             return damage;
+        }
+
+       
+        public override string ToString()
+        {
+            return notification;
         }
     }
 }
