@@ -271,6 +271,10 @@ namespace HunterGame
             return items.getImage();
             
         }
+        public Boolean checkLives()
+        {
+            return (player.lives>0);
+        }
         
         public int getScore()
         {

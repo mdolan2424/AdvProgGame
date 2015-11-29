@@ -37,6 +37,7 @@ namespace HunterGame
         private Vector2 scoreVector;
         private Vector2 livesVector;
         private Vector2 notificationVector;
+        private Vector2 gameOverVector;
 
         //pause
         bool paused;
@@ -56,6 +57,7 @@ namespace HunterGame
         Player player;
 
         SpriteFont font;
+        SpriteFont titleFont;
         //player status
         SpriteFont playerNotificationFont;
         double enemySpawnTime = 0;
@@ -102,7 +104,7 @@ namespace HunterGame
             scoreVector = new Vector2(graphics.GraphicsDevice.Viewport.Width - 150, graphics.GraphicsDevice.Viewport.Height - 40);
             livesVector = new Vector2(graphics.GraphicsDevice.Viewport.Width - 300, graphics.GraphicsDevice.Viewport.Height - 40);
             notificationVector = new Vector2(graphics.GraphicsDevice.Viewport.Width - 500, graphics.GraphicsDevice.Viewport.Height - 40);
-
+            gameOverVector = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2.0f - 75, graphics.GraphicsDevice.Viewport.Height / 2.0f);
             elapsedtime = 0.0;
 
             base.Initialize();
@@ -122,7 +124,7 @@ namespace HunterGame
             //for enemies
             //player notification
             playerNotificationFont = Content.Load<Microsoft.Xna.Framework.Graphics.SpriteFont>("SpriteFont1");
-
+            titleFont = Content.Load<SpriteFont>("TitleFont");
             EnemyImage = Content.Load<Texture2D>("Graphics\\rubber-duck-icon");
 
             //load background
@@ -168,7 +170,7 @@ namespace HunterGame
                 base.Update(gameTime);
 
             }
-            else
+            else if(controller.checkLives())
             {
                 
                 enemySpawnTime += gameTime.ElapsedGameTime.TotalSeconds;
@@ -207,14 +209,12 @@ namespace HunterGame
                     
                 }
 
-
-
-
-                 
-
-
                 base.Update(gameTime);
                 
+            }
+            else
+            {
+
             }
         }
 
@@ -231,40 +231,47 @@ namespace HunterGame
             spriteBatch.Draw(Background, new Rectangle(0, 0, Background.Width + 200, Background.Height), Color.White);
 
             spriteBatch.Draw(crosshair, cursor);
-
-            if (controller.itemAppeared == true)
+            if (controller.checkLives())
             {
-                //move item
-                itemVector = controller.updateItem();
+                if (controller.itemAppeared == true)
+                {
+                    //move item
+                    itemVector = controller.updateItem();
 
-                //Centers appearance of item on draw point so collision can be compared regardless of size of image
-                Vector2 itemCenter = new Vector2((itemVector.X - itemImage.Width / 2), (itemVector.Y - itemImage.Height / 2));
-                //draw item
-                spriteBatch.Draw(itemImage, itemCenter);
+                    //Centers appearance of item on draw point so collision can be compared regardless of size of image
+                    Vector2 itemCenter = new Vector2((itemVector.X - itemImage.Width / 2), (itemVector.Y - itemImage.Height / 2));
+                    //draw item
+                    spriteBatch.Draw(itemImage, itemCenter);
 
+                }
+
+                //draw our enemies
+                for (int i = EnemyVectors.Count - 1; i > 0; i--)
+                {
+
+                    //Centers appearance of enemy on draw point so collision can be compared regardless of size of image
+
+                    Vector2 centered = new Vector2(EnemyVectors[i].X - (EnemyImage.Width / 2), EnemyVectors[i].Y - (EnemyImage.Height / 2));
+                    spriteBatch.Draw(EnemyImage, centered);
+
+                }
+
+
+                spriteBatch.DrawString(font, controller.notification, notificationVector, Color.Red);
+
+                
+                base.Draw(gameTime);
             }
-
-            //draw our enemies
-            for (int i = EnemyVectors.Count-1; i >0; i--)
+            else
             {
-                
-                //Centers appearance of enemy on draw point so collision can be compared regardless of size of image
-                
-                Vector2 centered = new Vector2(EnemyVectors[i].X - (EnemyImage.Width / 2), EnemyVectors[i].Y - (EnemyImage.Height / 2));
-                spriteBatch.Draw(EnemyImage, centered);
-                
+                spriteBatch.DrawString(titleFont, "Game Over", gameOverVector, Color.Black);
             }
-
-
             spriteBatch.DrawString(font, "Score: " + controller.getScore(), scoreVector, Color.Black);
             spriteBatch.DrawString(font, "Lives: " + controller.getLives(), livesVector, Color.Black);
-            spriteBatch.DrawString(font, controller.notification, notificationVector, Color.Red);
-            
+
             spriteBatch.End();
-            
-            base.Draw(gameTime);
+
         }
-        
         //performs actions when game is activated
 
         protected override void OnActivated(object sender, EventArgs args)
