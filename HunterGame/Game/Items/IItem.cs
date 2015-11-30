@@ -17,7 +17,7 @@ namespace HunterGame.Game.Items
         int increaseLives();
         int weaponUpgrade();
         int powerUp();
-
+        int stun();
         
         
         

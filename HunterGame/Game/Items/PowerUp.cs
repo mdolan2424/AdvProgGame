@@ -46,7 +46,7 @@ namespace HunterGame.Game.Items
 
         public int powerUp()
         {
-            
+
             return 1;
         }
 
@@ -55,6 +55,10 @@ namespace HunterGame.Game.Items
             return 0;
         }
         
+        public int stun()
+        {
+            return 0;
+        }
 
 
     }

@@ -72,13 +72,13 @@ namespace HunterGame
             if (player.canShoot())
             {
                 player.shoot();
-                notification = player.getState();
+                
                 for (int i = enemiesOnScreen.Count - 1; i > 0; i--)
                 {
 
                     if (rect.Contains(enemiesVector[i]) && !enemyShot)
                     {
-                        player.checkDanger(enemiesOnScreen[i].KillWorth);
+                        
                         player.PlayerScore.gainScore(enemiesOnScreen[i].KillWorth);
                         enemiesVector.Remove(enemiesVector[i]);
                         enemiesOnScreen.Remove(enemiesOnScreen[i]);
@@ -99,7 +99,9 @@ namespace HunterGame
                     //spawn a random item and draw to screen.                
                     IItem item = items.getItem();
                     player.changeLives(item.increaseLives());
-                    player.checkDanger(item.powerUp());
+                    
+                    player.powerUp(item.powerUp());
+                    player.stun(item.stun());
                     player.increaseMaxAmmo(item.weaponUpgrade());
                     //destroy item
                     itemAppeared = false;
@@ -108,14 +110,11 @@ namespace HunterGame
                 
             }
 
-            else
-            {
-                notification = player.getState();
-            }
+            notification = player.getState();
 
-            
 
-            
+
+
 
         }
 
@@ -305,10 +304,12 @@ namespace HunterGame
         {
 
             player.update(elapsedTime);
+            notification = player.getState();
+
         }
 
-       
-        
-        
+
+
+
     }
 }

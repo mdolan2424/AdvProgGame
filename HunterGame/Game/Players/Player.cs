@@ -17,12 +17,14 @@ namespace HunterGame
         //weapon
         public int ammo { get; set; }
         public int reloadTime { get; set; }
+
         public int damage { get; set; }
-        public int shootSpeed { get; set; }
+        public int gunCooldown { get; set; }
 
 
         private int maxAmmo;
-        private string stateText;
+        private int maxReloadTime;
+
         private PlayerContext PlayerState;
 
         private Timer shootTimer;
@@ -42,13 +44,13 @@ namespace HunterGame
             this.damage = 1;
             score = new Score();
             
-            //1 per second
-            shootSpeed = 1;
+            
             time = 0;
             this.ammo = 20;
             this.maxAmmo = 20;
             shootTimer = new Timer();
             PlayerState = new PlayerContext();
+            maxReloadTime = 3;
             
         }
         
@@ -60,6 +62,7 @@ namespace HunterGame
         public void shoot()
         {
             this.ammo -= 1;
+            this.gunCooldown = 1;
             if (this.ammo <= 0)
             {
                 reload();
@@ -71,8 +74,21 @@ namespace HunterGame
             PlayerState.setState(new ReloadingState());
             this.ammo = this.maxAmmo;
             //set to 3 seconds reload time
-            shootTimer.set(time, 3);
+            shootTimer.set(time, maxReloadTime);
             
+        }
+
+        public void stun(int stunTime)
+        {
+
+                PlayerState.setState(new StunnedState());
+                shootTimer.set(time, stunTime);
+            
+            
+        }
+        public void powerUp(int amount)
+        {
+            this.maxReloadTime = amount;
         }
         
         public void increaseMaxAmmo(int amount)
@@ -93,23 +109,6 @@ namespace HunterGame
         }
 
         
-        //TODO: Reevaluate this.
-        public void checkDanger(int killworth)
-        {
-            if (killworth == -1)
-            {
-                PlayerState.setState(new StunnedState());
-                
-                //stunned
-                
-            }
-
-            else
-            {
-                PlayerState.setState(new FiringState());
-
-            }
-        }
 
         public void update(double time)
         {
