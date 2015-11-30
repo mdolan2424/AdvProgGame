@@ -50,7 +50,7 @@ namespace HunterGame.Game.Items
 
         public int weaponUpgrade()
         {
-            return 1;
+            return 5;
         }
     }
 

@@ -11,7 +11,7 @@ namespace HunterGame.Game.Players
         
         public PlayerContext()
         {
-            playerState = null;
+            playerState = new FiringState();
         }
 
         public void setState(IPlayerState state)

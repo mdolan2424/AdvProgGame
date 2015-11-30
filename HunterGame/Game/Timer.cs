@@ -16,7 +16,7 @@ namespace HunterGame.Game
             this.isActive = false;
             this.start = 0;
             this.stop = 0;
-            this.isDone = false;
+            
 
         }
 
@@ -35,9 +35,11 @@ namespace HunterGame.Game
 
         public Boolean checkCompletion(double gametime)
         {
-            if (gametime > this.stop)
+            if (isActive && gametime > this.stop)
             {
-
+                isActive = false;
+                this.start = 0;
+                this.stop = 0;
                 return true;
             }
 

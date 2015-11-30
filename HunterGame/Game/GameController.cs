@@ -72,6 +72,7 @@ namespace HunterGame
             if (player.canShoot())
             {
                 player.shoot();
+                notification = player.getState();
                 for (int i = enemiesOnScreen.Count - 1; i > 0; i--)
                 {
 
@@ -99,17 +100,22 @@ namespace HunterGame
                     IItem item = items.getItem();
                     player.changeLives(item.increaseLives());
                     player.checkDanger(item.powerUp());
+                    player.increaseMaxAmmo(item.weaponUpgrade());
                     //destroy item
                     itemAppeared = false;
                 }
 
                 
             }
-            {
 
+            else
+            {
+                notification = player.getState();
             }
 
-            notification = player.getState();
+            
+
+            
 
         }
 

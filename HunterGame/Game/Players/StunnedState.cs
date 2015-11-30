@@ -8,12 +8,9 @@ namespace HunterGame.Game.Players
     class StunnedState : IPlayerState
     {
 
-        private float Timer;
+       
 
-        public StunnedState()
-        {
-            Timer = 3.0F;
-        }
+        
         public Boolean shoot()
         {
             return false;

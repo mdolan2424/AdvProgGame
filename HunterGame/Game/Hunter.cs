@@ -201,7 +201,7 @@ namespace HunterGame
                     itemImage = Content.Load<Texture2D>(imageLocation);
                     itemSpawnTime = 0;
                 }
-
+                controller.updatePlayer();
                 //check if mouse click
                 if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
                 {
@@ -214,7 +214,7 @@ namespace HunterGame
                     
                 }
                 //update player on current game time
-                controller.updatePlayer();
+                
                 base.Update(gameTime);
                 
             }

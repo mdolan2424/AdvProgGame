@@ -20,7 +20,8 @@ namespace HunterGame
         public int damage { get; set; }
         public int shootSpeed { get; set; }
 
-        
+
+        private int maxAmmo;
         private string stateText;
         private PlayerContext PlayerState;
 
@@ -45,8 +46,10 @@ namespace HunterGame
             shootSpeed = 1;
             time = 0;
             this.ammo = 20;
+            this.maxAmmo = 20;
             shootTimer = new Timer();
             PlayerState = new PlayerContext();
+            
         }
         
         public void changeLives(int amount)
@@ -66,20 +69,20 @@ namespace HunterGame
         {
             //change state
             PlayerState.setState(new ReloadingState());
-            this.ammo = 20;
+            this.ammo = this.maxAmmo;
             //set to 3 seconds reload time
             shootTimer.set(time, 3);
             
         }
         
+        public void increaseMaxAmmo(int amount)
+        {
+            this.maxAmmo += amount;
+        }
         public Boolean canShoot()
         {
-            //check time resolved;
-            if (!shootTimer.checkCompletion(time))
-            {
-                return false;
-            }
-            PlayerState.setState(new FiringState());
+            
+            
             return PlayerState.getState().shoot();
         }
 
@@ -111,6 +114,10 @@ namespace HunterGame
         public void update(double time)
         {
             this.time = time;
+            if (shootTimer.checkCompletion(time))
+            {
+                PlayerState.setState(new FiringState());
+            }
         }
     }
 }
