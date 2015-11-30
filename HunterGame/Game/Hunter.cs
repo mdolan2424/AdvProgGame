@@ -37,6 +37,7 @@ namespace HunterGame
         private Vector2 scoreVector;
         private Vector2 livesVector;
         private Vector2 notificationVector;
+        private Vector2 ammoVector;
         private Vector2 gameOverVector;
 
         //pause
@@ -58,6 +59,7 @@ namespace HunterGame
 
         SpriteFont font;
         SpriteFont titleFont;
+        SpriteFont ammoFont;
         //player status
         SpriteFont playerNotificationFont;
         double enemySpawnTime = 0;
@@ -103,7 +105,9 @@ namespace HunterGame
             pauseKeyDown = false;
             scoreVector = new Vector2(graphics.GraphicsDevice.Viewport.Width - 150, graphics.GraphicsDevice.Viewport.Height - 40);
             livesVector = new Vector2(graphics.GraphicsDevice.Viewport.Width - 300, graphics.GraphicsDevice.Viewport.Height - 40);
-            notificationVector = new Vector2(graphics.GraphicsDevice.Viewport.Width - 500, graphics.GraphicsDevice.Viewport.Height - 40);
+            scoreVector = new Vector2(graphics.GraphicsDevice.Viewport.Width - 450, graphics.GraphicsDevice.Viewport.Height - 40);
+            notificationVector = new Vector2(graphics.GraphicsDevice.Viewport.Width - 850, graphics.GraphicsDevice.Viewport.Height - 40);
+            ammoVector = new Vector2(graphics.GraphicsDevice.Viewport.Width - 1050 , graphics.GraphicsDevice.Viewport.Height - 40);
             gameOverVector = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2.0f - 75, graphics.GraphicsDevice.Viewport.Height / 2.0f);
             elapsedtime = 0.0;
 
@@ -124,6 +128,7 @@ namespace HunterGame
             //for enemies
             //player notification
             playerNotificationFont = Content.Load<Microsoft.Xna.Framework.Graphics.SpriteFont>("SpriteFont1");
+            ammoFont = Content.Load<Microsoft.Xna.Framework.Graphics.SpriteFont>("SpriteFont1");
             titleFont = Content.Load<SpriteFont>("TitleFont");
             EnemyImage = Content.Load<Texture2D>("Graphics\\rubber-duck-icon");
 
@@ -208,7 +213,8 @@ namespace HunterGame
 
                     
                 }
-
+                //update player on current game time
+                controller.updatePlayer();
                 base.Update(gameTime);
                 
             }
@@ -268,7 +274,7 @@ namespace HunterGame
             }
             spriteBatch.DrawString(font, "Score: " + controller.getScore(), scoreVector, Color.Black);
             spriteBatch.DrawString(font, "Lives: " + controller.getLives(), livesVector, Color.Black);
-
+            spriteBatch.DrawString(font, "Ammo: " + controller.getAmmo(), ammoVector, Color.Black);
             spriteBatch.End();
 
         }

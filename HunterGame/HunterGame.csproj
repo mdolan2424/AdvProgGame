@@ -46,6 +46,7 @@
     <Compile Include="Game\GameController.cs" />
     <Compile Include="Game\HardEnemy.cs" />
     <Compile Include="Game\Hunter.cs" />
+    <Compile Include="Game\Items\BadPowerUp.cs" />
     <Compile Include="Game\Items\IItem.cs" />
     <Compile Include="Game\Items\ItemFactory.cs" />
     <Compile Include="Game\Items\ItemManager.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Game\Players\ReloadingState.cs" />
     <Compile Include="Game\Players\StunnedState.cs" />
     <Compile Include="Game\SpawnerProto.cs" />
+    <Compile Include="Game\Timer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Game\Score.cs" />
   </ItemGroup>

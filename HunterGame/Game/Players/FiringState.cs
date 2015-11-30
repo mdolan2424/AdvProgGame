@@ -7,18 +7,18 @@ namespace HunterGame.Game.Players
 {
     class FiringState : IPlayerState
     {
-        private int damage;
+        private Boolean canShoot;
         private string notification;
         public int stunShots { get; set; }
         public FiringState()
         {
-            damage = 1;
+            canShoot = true;
             notification = "";
         }
 
-        public int shoot()
+        public Boolean shoot()
         {
-            return damage;
+            return canShoot;
         }
 
        

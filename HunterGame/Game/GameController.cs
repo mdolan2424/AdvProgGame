@@ -69,9 +69,9 @@ namespace HunterGame
             bool enemyShot = false;
             Rectangle rect = new Rectangle(point.X-60, point.Y-60, 120, 120);
 
-            if (player.shootEnemy()>= 1)
+            if (player.canShoot())
             {
-
+                player.shoot();
                 for (int i = enemiesOnScreen.Count - 1; i > 0; i--)
                 {
 
@@ -103,7 +103,7 @@ namespace HunterGame
                     itemAppeared = false;
                 }
 
-
+                
             }
             {
 
@@ -280,6 +280,11 @@ namespace HunterGame
         {
             return player.PlayerScore.ScoreVal;
         }
+
+        public string getAmmo()
+        {
+            return player.ammo.ToString();
+        }
         public int getLives()
         {
             return player.lives;
@@ -290,10 +295,13 @@ namespace HunterGame
             elapsedTime = time;
         }
 
-        public void setPlayerState(string state)
+        public void updatePlayer()
         {
-            
+
+            player.update(elapsedTime);
         }
+
+       
         
         
     }

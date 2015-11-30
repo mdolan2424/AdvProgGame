@@ -5,9 +5,9 @@ using System.Text;
 
 namespace HunterGame.Game.Items
 {
-    class PowerUp: IItem
+    class BadPowerUp : IItem
     {
-            
+
 
         public string name
         {
@@ -24,10 +24,10 @@ namespace HunterGame.Game.Items
         }
 
         private string image;
-        public PowerUp()
+        public BadPowerUp()
         {
 
-            this.name = "Standard PowerUp";
+            this.name = "Stun Potion";
             image = "Graphics\\greenpotion";
 
         }
@@ -46,15 +46,15 @@ namespace HunterGame.Game.Items
 
         public int powerUp()
         {
-            
-            return 1;
+
+            return -1;
         }
 
         public int weaponUpgrade()
         {
             return 0;
         }
-        
+
 
 
     }
