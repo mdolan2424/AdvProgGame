@@ -44,10 +44,15 @@ namespace HunterGame.Game.Items
 
         public int powerUp()
         {
-            return 0;
+            return 3;
         }
 
         public int weaponUpgrade()
+        {
+            return 0;
+        }
+
+        public int stun()
         {
             return 0;
         }

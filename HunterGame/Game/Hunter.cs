@@ -37,8 +37,13 @@ namespace HunterGame
         private Vector2 scoreVector;
         private Vector2 livesVector;
         private Vector2 notificationVector;
+
         private Vector2 pauseVector;
         private Vector2 pauseSize;
+
+        private Vector2 ammoVector;
+        private Vector2 gameOverVector;
+
 
         //pause
         bool paused;
@@ -58,7 +63,12 @@ namespace HunterGame
         Player player;
 
         SpriteFont font;
+
         SpriteFont MenuFont;
+
+        SpriteFont titleFont;
+        SpriteFont ammoFont;
+
         //player status
         SpriteFont playerNotificationFont;
         double enemySpawnTime = 0;
@@ -105,10 +115,14 @@ namespace HunterGame
             cursor = new Vector2(width, height);
             paused = false;
             pauseKeyDown = false;
+
+
             scoreVector = new Vector2(width - 150, height - 40);
             livesVector = new Vector2(width - 300, height - 40);
-            notificationVector = new Vector2(width - 500, height - 40);
-            
+            scoreVector = new Vector2(width - 450, height - 40);
+            notificationVector = new Vector2(width - 850, height - 40);
+            ammoVector = new Vector2(width - 1050 , height - 40);
+            gameOverVector = new Vector2(width / 2.0f - 75, height / 2.0f);
 
             elapsedtime = 0.0;
 
@@ -139,7 +153,8 @@ namespace HunterGame
             //for enemies
             //player notification
             playerNotificationFont = Content.Load<Microsoft.Xna.Framework.Graphics.SpriteFont>("SpriteFont1");
-
+            ammoFont = Content.Load<Microsoft.Xna.Framework.Graphics.SpriteFont>("SpriteFont1");
+            titleFont = Content.Load<SpriteFont>("TitleFont");
             EnemyImage = Content.Load<Texture2D>("Graphics\\rubber-duck-icon");
 
             //load background
@@ -185,7 +200,7 @@ namespace HunterGame
                 base.Update(gameTime);
 
             }
-            else
+            else if(controller.checkLives())
             {
                 
                 enemySpawnTime += gameTime.ElapsedGameTime.TotalSeconds;
@@ -211,7 +226,7 @@ namespace HunterGame
                     itemImage = Content.Load<Texture2D>(imageLocation);
                     itemSpawnTime = 0;
                 }
-
+                controller.updatePlayer();
                 //check if mouse click
                 if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
                 {
@@ -223,15 +238,14 @@ namespace HunterGame
 
                     
                 }
-
-
-
-
-                 
-
-
+                //update player on current game time
+                
                 base.Update(gameTime);
                 
+            }
+            else
+            {
+
             }
         }
 
@@ -248,49 +262,58 @@ namespace HunterGame
             spriteBatch.Draw(Background, new Rectangle(0, 0, Background.Width + 200, Background.Height), Color.White);
 
             spriteBatch.Draw(crosshair, cursor);
-
-            if (controller.itemAppeared == true)
+            if (controller.checkLives())
             {
-                //move item
-                itemVector = controller.updateItem();
+                if (controller.itemAppeared == true)
+                {
+                    //move item
+                    itemVector = controller.updateItem();
 
-                //Centers appearance of item on draw point so collision can be compared regardless of size of image
-                Vector2 itemCenter = new Vector2((itemVector.X - itemImage.Width / 2), (itemVector.Y - itemImage.Height / 2));
-                //draw item
-                spriteBatch.Draw(itemImage, itemCenter);
+                    //Centers appearance of item on draw point so collision can be compared regardless of size of image
+                    Vector2 itemCenter = new Vector2((itemVector.X - itemImage.Width / 2), (itemVector.Y - itemImage.Height / 2));
+                    //draw item
+                    spriteBatch.Draw(itemImage, itemCenter);
 
+                }
+
+                //draw our enemies
+                for (int i = EnemyVectors.Count - 1; i > 0; i--)
+                {
+
+                    //Centers appearance of enemy on draw point so collision can be compared regardless of size of image
+
+                    Vector2 centered = new Vector2(EnemyVectors[i].X - (EnemyImage.Width / 2), EnemyVectors[i].Y - (EnemyImage.Height / 2));
+                    spriteBatch.Draw(EnemyImage, centered);
+
+                }
+
+
+                spriteBatch.DrawString(font, controller.notification, notificationVector, Color.Red);
+
+                
+                base.Draw(gameTime);
             }
-
-            //draw our enemies
-            for (int i = EnemyVectors.Count-1; i >0; i--)
+            else
             {
-                
-                //Centers appearance of enemy on draw point so collision can be compared regardless of size of image
-                
-                Vector2 centered = new Vector2(EnemyVectors[i].X - (EnemyImage.Width / 2), EnemyVectors[i].Y - (EnemyImage.Height / 2));
-                spriteBatch.Draw(EnemyImage, centered);
-                
+                spriteBatch.DrawString(titleFont, "Game Over", gameOverVector, Color.Black);
             }
-
-
             spriteBatch.DrawString(font, "Score: " + controller.getScore(), scoreVector, Color.Black);
             spriteBatch.DrawString(font, "Lives: " + controller.getLives(), livesVector, Color.Black);
+
             spriteBatch.DrawString(font, controller.notification, notificationVector, Color.Red);
+            spriteBatch.DrawString(font, "Ammo: " + controller.getAmmo(), ammoVector, Color.Black);
 
             //for displaying the paused sprite after pausing of the game
-            
-            if(paused == true)
+
+            if (paused == true)
             {
                 
                 spriteBatch.DrawString(MenuFont, "PAUSED!", pauseVector, Color.Black);
             }
-            
 
             spriteBatch.End();
-            
-            base.Draw(gameTime);
+
         }
-        
         //performs actions when game is activated
 
         protected override void OnActivated(object sender, EventArgs args)

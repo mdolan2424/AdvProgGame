@@ -7,12 +7,12 @@ namespace HunterGame.Game.Players
 {
     class ReloadingState : IPlayerState
     {
-        public int shoot()
+        public Boolean shoot()
         {
-            return 0;
+            return false;
         }
 
-        public string ToString()
+        public override string ToString()
         {
 
             return "You are reloading!!";

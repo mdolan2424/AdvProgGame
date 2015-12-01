@@ -8,16 +8,12 @@ namespace HunterGame.Game.Players
     class StunnedState : IPlayerState
     {
 
-        private int stunShots;
+       
 
-        public StunnedState()
+        
+        public Boolean shoot()
         {
-            stunShots = -3;
-        }
-        public int shoot()
-        {
-            stunShots += 1;
-            return stunShots;
+            return false;
         }
 
         
@@ -26,5 +22,7 @@ namespace HunterGame.Game.Players
 
             return "You are stunned!!";
         }
+
+        
     }
 }

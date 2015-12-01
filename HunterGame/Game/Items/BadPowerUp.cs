@@ -5,9 +5,10 @@ using System.Text;
 
 namespace HunterGame.Game.Items
 {
-    class Weapon : IItem
+    class BadPowerUp : IItem
     {
-        private int Lives;
+
+
         public string name
         {
             get; set;
@@ -23,14 +24,14 @@ namespace HunterGame.Game.Items
         }
 
         private string image;
-
-        public Weapon()
+        public BadPowerUp()
         {
-            this.Lives = 1;
-            this.name = "Standard Rifle";
-            image = "Graphics\\HuntingRifle";
+
+            this.name = "Stun Potion";
+            image = "Graphics\\greenpotion";
 
         }
+
 
         public string getImage()
         {
@@ -45,19 +46,22 @@ namespace HunterGame.Game.Items
 
         public int powerUp()
         {
+
+            return 3;
+        }
+
+        public int stun()
+        {
+
             return 3;
         }
 
         public int weaponUpgrade()
         {
-            return 5;
-        }
-
-
-        public int stun()
-        {
             return 0;
         }
-    }
 
+
+
+    }
 }

@@ -69,15 +69,16 @@ namespace HunterGame
             bool enemyShot = false;
             Rectangle rect = new Rectangle(point.X-60, point.Y-60, 120, 120);
 
-            if (player.shootEnemy()>= 1)
+            if (player.canShoot())
             {
-
+                player.shoot();
+                
                 for (int i = enemiesOnScreen.Count - 1; i > 0; i--)
                 {
 
                     if (rect.Contains(enemiesVector[i]) && !enemyShot)
                     {
-                        player.checkDanger(enemiesOnScreen[i].KillWorth);
+                        
                         player.PlayerScore.gainScore(enemiesOnScreen[i].KillWorth);
                         enemiesVector.Remove(enemiesVector[i]);
                         enemiesOnScreen.Remove(enemiesOnScreen[i]);
@@ -98,18 +99,22 @@ namespace HunterGame
                     //spawn a random item and draw to screen.                
                     IItem item = items.getItem();
                     player.changeLives(item.increaseLives());
-                    player.checkDanger(item.powerUp());
+                    
+                    player.powerUp(item.powerUp());
+                    player.stun(item.stun());
+                    player.increaseMaxAmmo(item.weaponUpgrade());
                     //destroy item
                     itemAppeared = false;
                 }
 
-
-            }
-            {
-
+                
             }
 
             notification = player.getState();
+
+
+
+
 
         }
 
@@ -271,10 +276,19 @@ namespace HunterGame
             return items.getImage();
             
         }
+        public Boolean checkLives()
+        {
+            return (player.lives>0);
+        }
         
         public int getScore()
         {
             return player.PlayerScore.ScoreVal;
+        }
+
+        public string getAmmo()
+        {
+            return player.ammo.ToString();
         }
         public int getLives()
         {
@@ -286,11 +300,16 @@ namespace HunterGame
             elapsedTime = time;
         }
 
-        public void setPlayerState(string state)
+        public void updatePlayer()
         {
-            
+
+            player.update(elapsedTime);
+            notification = player.getState();
+
         }
-        
-        
+
+
+
+
     }
 }

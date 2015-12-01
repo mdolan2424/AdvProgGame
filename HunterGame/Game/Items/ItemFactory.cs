@@ -31,6 +31,10 @@ namespace HunterGame.Game.Items
             {
                 return new Weapon();
             }
+            else if (item == 4)
+            {
+                return new BadPowerUp();
+            }
             
             return null;
         }
