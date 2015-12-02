@@ -307,7 +307,7 @@ namespace HunterGame
 
             if (paused == true)
             {
-                
+               
                 spriteBatch.DrawString(MenuFont, "PAUSED!", pauseVector, Color.Black);
             }
 
@@ -349,11 +349,12 @@ namespace HunterGame
         {
             paused = true;
             //TODO: Pause audio playback
+            
         }
         private void EndPause()
         {
             //TODO: Resume audio
-           
+            
             paused = false;
         }
     }
