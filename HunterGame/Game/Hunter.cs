@@ -37,8 +37,13 @@ namespace HunterGame
         private Vector2 scoreVector;
         private Vector2 livesVector;
         private Vector2 notificationVector;
+
+        private Vector2 pauseVector;
+        private Vector2 pauseSize;
+
         private Vector2 ammoVector;
         private Vector2 gameOverVector;
+
 
         //pause
         bool paused;
@@ -58,8 +63,12 @@ namespace HunterGame
         Player player;
 
         SpriteFont font;
+
+        SpriteFont MenuFont;
+
         SpriteFont titleFont;
         SpriteFont ammoFont;
+
         //player status
         SpriteFont playerNotificationFont;
         double enemySpawnTime = 0;
@@ -90,6 +99,9 @@ namespace HunterGame
         /// </summary>
         protected override void Initialize()
         {
+            //our height and width of screen
+            int height = graphics.GraphicsDevice.Viewport.Height;
+            int width = graphics.GraphicsDevice.Viewport.Width;
             Ran = new Random();
             //use item
             player = new Player(3);
@@ -100,15 +112,18 @@ namespace HunterGame
             currentMouseState = new MouseState();
 
             //initialize cursor
-            cursor = new Vector2(graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height);
+            cursor = new Vector2(width, height);
             paused = false;
             pauseKeyDown = false;
-            scoreVector = new Vector2(graphics.GraphicsDevice.Viewport.Width - 150, graphics.GraphicsDevice.Viewport.Height - 40);
-            livesVector = new Vector2(graphics.GraphicsDevice.Viewport.Width - 300, graphics.GraphicsDevice.Viewport.Height - 40);
-            scoreVector = new Vector2(graphics.GraphicsDevice.Viewport.Width - 450, graphics.GraphicsDevice.Viewport.Height - 40);
-            notificationVector = new Vector2(graphics.GraphicsDevice.Viewport.Width - 850, graphics.GraphicsDevice.Viewport.Height - 40);
-            ammoVector = new Vector2(graphics.GraphicsDevice.Viewport.Width - 1050 , graphics.GraphicsDevice.Viewport.Height - 40);
-            gameOverVector = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2.0f - 75, graphics.GraphicsDevice.Viewport.Height / 2.0f);
+
+
+            scoreVector = new Vector2(width - 150, height - 40);
+            livesVector = new Vector2(width - 300, height - 40);
+            scoreVector = new Vector2(width - 450, height - 40);
+            notificationVector = new Vector2(width - 850, height - 40);
+            ammoVector = new Vector2(width - 1050 , height - 40);
+            gameOverVector = new Vector2(width / 2.0f - 75, height / 2.0f);
+
             elapsedtime = 0.0;
 
             base.Initialize();
@@ -120,11 +135,21 @@ namespace HunterGame
         /// </summary>
         protected override void LoadContent()
         {
+            //our height and width of screen
+            int height = graphics.GraphicsDevice.Viewport.Height;
+            int width = graphics.GraphicsDevice.Viewport.Width;
+
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             
             crosshair = Content.Load<Texture2D>("Graphics\\circle-03");
             font = Content.Load<Microsoft.Xna.Framework.Graphics.SpriteFont>("SpriteFont1");
+            MenuFont = Content.Load<SpriteFont>("Graphics\\MenuFont");
+
+            //We instantiate these vectors in here in order to center the 'paused' message correctly
+            pauseSize = MenuFont.MeasureString("PAUSED!");
+            pauseVector = new Vector2((width / 2) - (pauseSize.X / 2), height - (int) (.75 * (double) height));
+
             //for enemies
             //player notification
             playerNotificationFont = Content.Load<Microsoft.Xna.Framework.Graphics.SpriteFont>("SpriteFont1");
@@ -274,7 +299,18 @@ namespace HunterGame
             }
             spriteBatch.DrawString(font, "Score: " + controller.getScore(), scoreVector, Color.Black);
             spriteBatch.DrawString(font, "Lives: " + controller.getLives(), livesVector, Color.Black);
+
+            spriteBatch.DrawString(font, controller.notification, notificationVector, Color.Red);
             spriteBatch.DrawString(font, "Ammo: " + controller.getAmmo(), ammoVector, Color.Black);
+
+            //for displaying the paused sprite after pausing of the game
+
+            if (paused == true)
+            {
+                
+                spriteBatch.DrawString(MenuFont, "PAUSED!", pauseVector, Color.Black);
+            }
+
             spriteBatch.End();
 
         }
@@ -290,6 +326,8 @@ namespace HunterGame
         protected override void OnDeactivated(object sender, EventArgs args)
         {
             this.Window.Title = "Paused";
+            
+
             base.OnDeactivated(sender, args);
         }
 
