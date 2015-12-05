@@ -261,7 +261,32 @@ namespace HunterGame
             
         }
 
-       
+        
+        public void startNewGame()
+        {
+            //game controller will keep track of
+            //player, enemies, score, items.
+            player.newGame(3);
+            //diffContext = new DifficultyContext(player.PlayerScore);
+            //player.PlayerScore.register(diffContext);
+            //spawner = new SpawnerProto(windowHeight, windowWidth);
+
+            enemiesVector.Clear();
+            enemiesOnScreen.Clear();
+
+            notification = "";
+
+            items = new ItemManager();
+            itemAppeared = false;
+
+            elapsedTime = 0;
+        }
+
+        public void quitGame()
+        {
+           
+        }
+
         public Vector2 updateItem()
         {
             items.changePosition();

@@ -97,8 +97,7 @@ namespace HunterGame
         }
         public Boolean canShoot()
         {
-            
-            
+                     
             return PlayerState.getState().shoot();
         }
 
@@ -107,7 +106,18 @@ namespace HunterGame
         {
             return PlayerState.getState().ToString();
         }
-
+        public void  newGame(int lives)
+        {
+            score.resetScore();
+            this.lives = lives;
+            ammo = 20;
+            time = 0;
+            this.ammo = 20;
+            this.maxAmmo = 20;
+            shootTimer = new Timer();
+            PlayerState = new PlayerContext();
+            maxReloadTime = 3;
+        }
         
 
         public void update(double time)

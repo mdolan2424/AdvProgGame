@@ -44,6 +44,11 @@ namespace HunterGame
         private Vector2 ammoVector;
         private Vector2 gameOverVector;
 
+        private Vector2 newGameVector;
+        private Vector2 quitGameVector;
+
+        Rectangle newGameRect;
+        Rectangle quitGameRect; 
 
         //pause
         bool paused;
@@ -122,9 +127,14 @@ namespace HunterGame
             scoreVector = new Vector2(width - 450, height - 40);
             notificationVector = new Vector2(width - 850, height - 40);
             ammoVector = new Vector2(width - 1050 , height - 40);
-            gameOverVector = new Vector2(width / 2.0f - 75, height / 2.0f);
+            gameOverVector = new Vector2(width / 2.0f - 75, height / 4.0f);
+            newGameVector = new Vector2(width / 2.0f - 75, height / 2.0f);
+            quitGameVector = new Vector2(width / 2.0f-10 , height / 2.0f + 75);
 
             elapsedtime = 0.0;
+
+            newGameRect = new Rectangle((int)newGameVector.X-10, (int)newGameVector.Y+5, 230, 50);
+            quitGameRect = new Rectangle((int)quitGameVector.X-10, (int)quitGameVector.Y+5, 100, 50);
 
             base.Initialize();
         }
@@ -245,6 +255,26 @@ namespace HunterGame
             }
             else
             {
+                if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
+                {
+
+                    Point mousePosition = new Point(currentMouseState.X, currentMouseState.Y);
+                    //check if an object was shot
+                    
+                    if(newGameRect.Contains(mousePosition))
+                    {
+                        controller.startNewGame();
+                        EnemyVectors.Clear();
+                    }
+                    else if(quitGameRect.Contains(mousePosition))
+                    {
+                        Exit();
+                    }
+                   
+
+
+
+                }
 
             }
         }
@@ -295,7 +325,26 @@ namespace HunterGame
             }
             else
             {
-                spriteBatch.DrawString(titleFont, "Game Over", gameOverVector, Color.Black);
+                
+                // At the top of your class:
+                Texture2D pixel;
+
+                // Somewhere in your LoadContent() method:
+                pixel = new Texture2D(graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+                pixel.SetData(new[] { Color.Black }); // so that we can draw whatever color we want on top of it
+
+
+
+
+                spriteBatch.DrawString(MenuFont, "Game Over", gameOverVector, Color.Black);
+                spriteBatch.DrawString(MenuFont, "New Game", newGameVector, Color.Black);
+
+                DrawBorder(pixel, newGameRect, 2, Color.Black);
+                spriteBatch.DrawString(MenuFont, "Exit", quitGameVector, Color.Black);
+                DrawBorder(pixel, quitGameRect, 2, Color.Black);
+
+
+
             }
             spriteBatch.DrawString(font, "Score: " + controller.getScore(), scoreVector, Color.Black);
             spriteBatch.DrawString(font, "Lives: " + controller.getLives(), livesVector, Color.Black);
@@ -314,6 +363,35 @@ namespace HunterGame
             spriteBatch.End();
 
         }
+
+        /// <summary>
+        /// Will draw a border (hollow rectangle) of the given 'thicknessOfBorder' (in pixels)
+        /// of the specified color.
+        ///
+        /// By Sean Colombo, from http://bluelinegamestudios.com/blog
+        /// </summary>
+        /// <param name="rectangleToDraw"></param>
+        /// <param name="thicknessOfBorder"></param>
+        private void DrawBorder(Texture2D pixel,Rectangle rectangleToDraw, int thicknessOfBorder, Color borderColor)
+        {
+            // Draw top line
+            spriteBatch.Draw(pixel, new Rectangle(rectangleToDraw.X, rectangleToDraw.Y, rectangleToDraw.Width, thicknessOfBorder), borderColor);
+
+            // Draw left line
+            spriteBatch.Draw(pixel, new Rectangle(rectangleToDraw.X, rectangleToDraw.Y, thicknessOfBorder, rectangleToDraw.Height), borderColor);
+
+            // Draw right line
+            spriteBatch.Draw(pixel, new Rectangle((rectangleToDraw.X + rectangleToDraw.Width - thicknessOfBorder),
+                                            rectangleToDraw.Y,
+                                            thicknessOfBorder,
+                                            rectangleToDraw.Height), borderColor);
+            // Draw bottom line
+            spriteBatch.Draw(pixel, new Rectangle(rectangleToDraw.X,
+                                            rectangleToDraw.Y + rectangleToDraw.Height - thicknessOfBorder,
+                                            rectangleToDraw.Width,
+                                            thicknessOfBorder), borderColor);
+        }
+        
         //performs actions when game is activated
 
         protected override void OnActivated(object sender, EventArgs args)

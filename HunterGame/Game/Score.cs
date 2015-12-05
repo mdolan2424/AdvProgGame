@@ -35,5 +35,10 @@ namespace HunterGame
         {
             ScoreVal -= amount;
         }
+        public void resetScore()
+        {
+            ScoreVal = 0;
+            notify();
+        }
     }
 }
