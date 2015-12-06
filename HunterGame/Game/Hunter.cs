@@ -130,6 +130,7 @@ namespace HunterGame
             gameOverVector = new Vector2(width / 2.0f - 75, height / 4.0f);
             newGameVector = new Vector2(width / 2.0f - 75, height / 2.0f);
             quitGameVector = new Vector2(width / 2.0f-10 , height / 2.0f + 75);
+            
 
             elapsedtime = 0.0;
 
@@ -156,7 +157,7 @@ namespace HunterGame
             font = Content.Load<Microsoft.Xna.Framework.Graphics.SpriteFont>("SpriteFont1");
             MenuFont = Content.Load<SpriteFont>("Graphics\\MenuFont");
 
-            //We instantiate these vectors in here in order to center the 'paused' message correctly
+            //We instantiate these vectors in here Because the pauseSize can only be used AFTER the MenuFont has been loaded
             pauseSize = MenuFont.MeasureString("PAUSED!");
             pauseVector = new Vector2((width / 2) - (pauseSize.X / 2), height - (int) (.75 * (double) height));
 

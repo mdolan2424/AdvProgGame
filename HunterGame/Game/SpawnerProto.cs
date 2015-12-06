@@ -40,6 +40,14 @@ namespace HunterGame
 
             return EnemyClone;
         }
+        //Overloaded method to return just basic EnemyClone
+        public EnemySubclass spawnEnemy()
+        {
+            //create our clone
+            EnemySubclass EnemyClone = (EnemySubclass)getEnemy(Original);
+
+            return EnemyClone;
+        }
 
         //This is our class for returning our cloned enemy. May be changed in the future
         //To return a hashmap or dictionairy of a group of cloned classes.
