@@ -31,6 +31,12 @@ namespace HunterGame
         KeyboardState currentKeyboardState, oldKeyboardState;
         MouseState currentMouseState, oldMouseState;
 
+        //Strings for sprite drawings
+        String gOver = "Game Over";
+        String nGame = "New Game";
+        String exit = "Exit";
+        String pause = "PAUSED!";
+
         //mouse position and sprite
         private Vector2 cursor;
         private Texture2D crosshair;
@@ -43,9 +49,12 @@ namespace HunterGame
 
         private Vector2 ammoVector;
         private Vector2 gameOverVector;
+        private Vector2 gameOverSize;
 
         private Vector2 newGameVector;
+        private Vector2 newGameSize;
         private Vector2 quitGameVector;
+        private Vector2 quitGameSize;
 
         Rectangle newGameRect;
         Rectangle quitGameRect; 
@@ -127,15 +136,15 @@ namespace HunterGame
             scoreVector = new Vector2(width - 450, height - 40);
             notificationVector = new Vector2(width - 850, height - 40);
             ammoVector = new Vector2(width - 1050 , height - 40);
-            gameOverVector = new Vector2(width / 2.0f - 75, height / 4.0f);
-            newGameVector = new Vector2(width / 2.0f - 75, height / 2.0f);
-            quitGameVector = new Vector2(width / 2.0f-10 , height / 2.0f + 75);
+            //gameOverVector = new Vector2(width / 2.0f - 75, height / 4.0f);
+            //newGameVector = new Vector2(width / 2.0f - 75, height / 2.0f);
+            //quitGameVector = new Vector2(width / 2.0f-10 , height / 2.0f + 75);
             
 
             elapsedtime = 0.0;
 
-            newGameRect = new Rectangle((int)newGameVector.X-10, (int)newGameVector.Y+5, 230, 50);
-            quitGameRect = new Rectangle((int)quitGameVector.X-10, (int)quitGameVector.Y+5, 100, 50);
+            //newGameRect = new Rectangle((int)newGameVector.X-10, (int)newGameVector.Y+5, 230, 50);
+            //quitGameRect = new Rectangle((int)quitGameVector.X-10, (int)quitGameVector.Y+5, 100, 50);
 
             base.Initialize();
         }
@@ -158,8 +167,18 @@ namespace HunterGame
             MenuFont = Content.Load<SpriteFont>("Graphics\\MenuFont");
 
             //We instantiate these vectors in here Because the pauseSize can only be used AFTER the MenuFont has been loaded
-            pauseSize = MenuFont.MeasureString("PAUSED!");
+            pauseSize = MenuFont.MeasureString(pause);
+            gameOverSize = MenuFont.MeasureString(gOver);
+            newGameSize = MenuFont.MeasureString(nGame);
+            quitGameSize = MenuFont.MeasureString(exit);
+
             pauseVector = new Vector2((width / 2) - (pauseSize.X / 2), height - (int) (.75 * (double) height));
+            gameOverVector = new Vector2((width / 2) - (gameOverSize.X / 2), height - (int)(.75 * (double)height));
+            newGameVector = new Vector2((width / 2) - (newGameSize.X / 2), height - (int)(.60 * (double)height));
+            quitGameVector = new Vector2((width / 2) - (quitGameSize.X / 2), height - (int)(.45 * (double)height));
+
+            newGameRect = new Rectangle((int)newGameVector.X - 10, (int)newGameVector.Y + 5, 230, 50);
+            quitGameRect = new Rectangle((int)quitGameVector.X - 10, (int)quitGameVector.Y + 5, 100, 50);
 
             //for enemies
             //player notification
@@ -358,7 +377,7 @@ namespace HunterGame
             if (paused == true)
             {
                
-                spriteBatch.DrawString(MenuFont, "PAUSED!", pauseVector, Color.Black);
+                spriteBatch.DrawString(MenuFont, pause, pauseVector, Color.Black);
             }
 
             spriteBatch.End();
