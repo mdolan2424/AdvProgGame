@@ -33,7 +33,7 @@ namespace HunterGame
 
         //Strings for sprite drawings
         String gOver = "Game Over";
-        String nGame = "New Game";
+        String nGame = "New Game  ";
         String exit = "Exit";
         String pause = "PAUSED!";
         String title = "Hunter";
