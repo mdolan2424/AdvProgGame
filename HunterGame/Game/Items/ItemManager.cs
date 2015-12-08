@@ -33,7 +33,7 @@ namespace HunterGame.Game.Items
             nextX = 1;
             nextY = 1;
             //default spawn point
-            position = new Vector2(0,0);
+            position = new Vector2(-1000,-1000);
             factory = new ItemFactory();
         }
        
