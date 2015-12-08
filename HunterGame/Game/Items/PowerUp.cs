@@ -8,14 +8,12 @@ namespace HunterGame.Game.Items
     class PowerUp: IItem
     {
             
-
         public string name
         {
             get; set;
         }
 
         string IItem.image
-
         {
             get
             {

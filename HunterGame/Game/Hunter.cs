@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using HunterGame.Game.Items;
 using System.Collections.Generic;
-
+using HunterGame.Game.Players;
 namespace HunterGame
 {
     /// <summary>
@@ -14,6 +14,7 @@ namespace HunterGame
     /// </summary>
     public class Hunter : Microsoft.Xna.Framework.Game
     {
+        
         Random Ran;
         //iterator for enemies in update
         int iterator = 0;
@@ -179,6 +180,7 @@ namespace HunterGame
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
+            Content.Unload();
         }
 
         /// <summary>
@@ -429,6 +431,14 @@ namespace HunterGame
             paused = true;
             //TODO: Pause audio playback
             
+        }
+
+        private void resetGame()
+        {
+
+            Initialize();
+            UnloadContent();
+            LoadContent();
         }
         private void EndPause()
         {

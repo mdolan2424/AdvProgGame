@@ -135,3 +135,13 @@ D:\UserFiles\HunterGame\Tests\bin\Debug\SharpDX.Direct3D9.xml
 D:\UserFiles\HunterGame\Tests\obj\Debug\Tests.csprojResolveAssemblyReference.cache
 D:\UserFiles\HunterGame\Tests\obj\Debug\Tests.dll
 D:\UserFiles\HunterGame\Tests\obj\Debug\Tests.pdb
+C:\Users\matt\Documents\Visual Studio 2015\Projects\HunterGame\Tests\bin\Debug\Content\Graphics\background.xnb
+C:\Users\matt\Documents\Visual Studio 2015\Projects\HunterGame\Tests\bin\Debug\Content\Graphics\greenpotion.png
+C:\Users\matt\Documents\Visual Studio 2015\Projects\HunterGame\Tests\bin\Debug\Content\Graphics\hand.xnb
+C:\Users\matt\Documents\Visual Studio 2015\Projects\HunterGame\Tests\bin\Debug\Content\Graphics\heart.png
+C:\Users\matt\Documents\Visual Studio 2015\Projects\HunterGame\Tests\bin\Debug\Content\Graphics\HuntingRifle.png
+C:\Users\matt\Documents\Visual Studio 2015\Projects\HunterGame\Tests\bin\Debug\Content\Graphics\MenuFont.xnb
+C:\Users\matt\Documents\Visual Studio 2015\Projects\HunterGame\Tests\bin\Debug\Content\Graphics\red-potion.png
+C:\Users\matt\Documents\Visual Studio 2015\Projects\HunterGame\Tests\bin\Debug\Content\Graphics\rubber-duck-icon.xnb
+C:\Users\matt\Documents\Visual Studio 2015\Projects\HunterGame\Tests\bin\Debug\Content\SpriteFont1.xnb
+C:\Users\matt\Documents\Visual Studio 2015\Projects\HunterGame\Tests\bin\Debug\Content\TitleFont.xnb

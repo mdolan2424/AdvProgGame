@@ -5,7 +5,7 @@ using System.Text;
 
 namespace HunterGame.Game.Players
 {
-    interface IPlayerState
+    public interface IPlayerState
     {
         Boolean shoot();
         

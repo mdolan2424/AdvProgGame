@@ -5,7 +5,7 @@ using System.Text;
 
 namespace HunterGame.Game.Items
 {
-    public class LifePotion : IItem
+    class LifePotion : IItem
     {
         public string name
         {

@@ -5,7 +5,7 @@ using System.Text;
 using HunterGame.Game.Items;
 using HunterGame.Game.Players;
 using HunterGame.Game;
-namespace HunterGame
+namespace HunterGame.Game.Players
 {
     public class Player
     {
@@ -52,6 +52,16 @@ namespace HunterGame
             PlayerState = new PlayerContext();
             maxReloadTime = 3;
             
+        }
+        
+        public int getMaxReloadTime()
+        {
+            return maxReloadTime;
+        }
+
+        public int getMaxAmmo()
+        {
+            return this.maxAmmo;
         }
         
         public void changeLives(int amount)
