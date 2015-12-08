@@ -120,8 +120,6 @@ namespace HunterGame
 
         }
 
-      
-
         public void spawnEnemy()
         {
             
@@ -144,7 +142,7 @@ namespace HunterGame
             
              //logic for updating enemies. loop through and set values for each
 
-            for(int i = enemiesOnScreen.Count - 1; i > 0; i--)
+            for(int i = enemiesOnScreen.Count - 1; i >= 0; i--)
             {
                 
                 bool remove = false;
@@ -262,7 +260,6 @@ namespace HunterGame
             return dest;
             
         }
-
         
         public void startNewGame()
         {
@@ -284,17 +281,11 @@ namespace HunterGame
             elapsedTime = 0;
         }
 
-        public void quitGame()
-        {
-           
-        }
-
         public Vector2 updateItem()
         {
             items.changePosition();
             return items.getPosition();
         }
-
          
         public String spawnItem()
         {
