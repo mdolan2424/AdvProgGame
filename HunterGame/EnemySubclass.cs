@@ -131,7 +131,7 @@ namespace HunterGame
                 Console.Write("We have a problem");
             }
 
-            Console.Write("Just went through clone copy");
+            
 
             return EnemyObject;
 

@@ -90,10 +90,9 @@ namespace HunterGame.Game.Players
 
         public void stun(int stunTime)
         {
-
+           
                 PlayerState.setState(new StunnedState());
                 shootTimer.set(time, stunTime);
-            
             
         }
         public void powerUp(int amount)

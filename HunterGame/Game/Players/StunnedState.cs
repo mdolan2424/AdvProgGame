@@ -7,9 +7,6 @@ namespace HunterGame.Game.Players
 {
     class StunnedState : IPlayerState
     {
-
-       
-
         
         public Boolean shoot()
         {

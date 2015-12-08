@@ -33,6 +33,7 @@ namespace HunterGame.Game.Items
             }
             else if (item == 4)
             {
+                Console.Write("bad item");
                 return new BadPowerUp();
             }
             

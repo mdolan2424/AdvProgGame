@@ -13,7 +13,7 @@ namespace HunterGame.Game.Players
         public FiringState()
         {
             canShoot = true;
-            notification = "";
+            this.notification = "Firing: OK";
         }
 
         public Boolean shoot()
@@ -24,7 +24,7 @@ namespace HunterGame.Game.Players
        
         public override string ToString()
         {
-            return notification;
+            return this.notification;
         }
     }
 }

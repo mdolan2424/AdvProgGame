@@ -381,7 +381,7 @@ namespace HunterGame
                 }
 
 
-                spriteBatch.DrawString(font, controller.notification, notificationVector, Color.Red);
+                
 
                 
                 base.Draw(gameTime);

@@ -42,7 +42,7 @@ namespace HunterGame.Game.Items
         {
             
             //static for now.
-            spawnedItem = factory.getItem(rand.Next(1,4));
+            spawnedItem = factory.getItem(rand.Next(1,5));
             position = new Vector2(rand.Next(11, 1049), rand.Next(11, 579));
             itemList.Add(spawnedItem);
         }

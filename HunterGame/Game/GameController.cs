@@ -54,7 +54,7 @@ namespace HunterGame
 
             notification = "";
             
-
+            
             windowHeight = windowY;
             windowWidth = windowX;
 
@@ -103,6 +103,8 @@ namespace HunterGame
                     player.powerUp(item.powerUp());
                     player.stun(item.stun());
                     player.increaseMaxAmmo(item.weaponUpgrade());
+
+                    
                     //destroy item
                     itemAppeared = false;
                 }
@@ -110,7 +112,7 @@ namespace HunterGame
                 
             }
 
-            notification = player.getState();
+      
 
 
 
@@ -329,7 +331,7 @@ namespace HunterGame
         {
 
             player.update(elapsedTime);
-            notification = player.getState();
+            this.notification = player.getState();
 
         }
 
