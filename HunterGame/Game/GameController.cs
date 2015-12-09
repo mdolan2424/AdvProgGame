@@ -73,7 +73,7 @@ namespace HunterGame
             {
                 player.shoot();
                 
-                for (int i = enemiesOnScreen.Count - 1; i > 0; i--)
+                for (int i = enemiesOnScreen.Count - 1; i >= 0; i--)
                 {
 
                     if (rect.Contains(enemiesVector[i]) && !enemyShot)

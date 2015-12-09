@@ -11,7 +11,7 @@ namespace HunterGame
         public MediumState()
         {
             enemyScreenPts = 2;
-            enemySpeed = 1.5F;
+            enemySpeed = 3F;
             maxEnemies = 3;
             enemyKillWorth = 10;
         }

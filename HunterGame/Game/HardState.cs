@@ -11,7 +11,7 @@ namespace HunterGame
         {   
             //set attributes for hard state
             enemyScreenPts = 1;
-            enemySpeed = 2;
+            enemySpeed =4;
             maxEnemies = 8;
             enemyKillWorth = 15;
         }
