@@ -23,9 +23,6 @@ namespace HunterGame
         //window size
         int WindowX;
         int WindowY;
-        //Destination
-        float[] destination = new float[2];
-
         Vector2 dest = new Vector2();
         public Vector2 Destination
         {
@@ -72,27 +69,7 @@ namespace HunterGame
             return returnA;
         }
 
-        public float[] getDestination()
-        {
-            return this.destination;
-        }
-        
-
-        //Method for reset of the destination
-        public float[] resetDestination(float RanDestX,float RanDestY)
-        {
-            
-            //Store start and end in array for return
-            float[] returnArray = new float[2];
-            returnArray[0] = RanDestX;
-            returnArray[1] = RanDestY;
-            //set our local destination variable
-            this.destination = returnArray;
-
-            return returnArray;
-
-        }
-
+   
         //Method for setting all the appropriate settings based on difficulty setting
         public void setDifficultyAttribs(float speed, int killWorth, int screenPoints)
         {
@@ -101,17 +78,10 @@ namespace HunterGame
 
             this.StartX = 0; //We do this to make sure it starts off screen.
             this.StartY = Ran.Next(this.WindowY);
-
-            //set destination
-            this.destination[0] = Ran.Next(this.WindowX);
-            this.destination[1] = Ran.Next(this.WindowY);
-
+            
             this.speed = speed;
             this.killWorth = killWorth;
             this.screenPoints = screenPoints;
-
-
-
 
         }
 

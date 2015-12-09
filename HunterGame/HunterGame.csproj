@@ -44,7 +44,6 @@
     <Compile Include="Game\EasyState.cs" />
     <Compile Include="Game\Enemy.cs" />
     <Compile Include="Game\GameController.cs" />
-    <Compile Include="Game\HardEnemy.cs" />
     <Compile Include="Game\Hunter.cs" />
     <Compile Include="Game\Items\BadPowerUp.cs" />
     <Compile Include="Game\Items\IItem.cs" />
