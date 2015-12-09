@@ -4,7 +4,10 @@ using System.Linq;
 using System.Text;
 
 namespace HunterGame
-{
+{   
+    /// <summary>
+    /// abstract class for observable objects
+    /// </summary>
     public abstract class Observable
     {
         protected List<Observer> observerList;

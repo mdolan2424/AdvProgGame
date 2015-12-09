@@ -8,9 +8,10 @@ namespace HunterGame
     public class HardState:DifficultyState
     {
         public HardState()
-        {
+        {   
+            //set attributes for hard state
             enemyScreenPts = 1;
-            enemySpeed = 2;
+            enemySpeed =4;
             maxEnemies = 8;
             enemyKillWorth = 15;
         }

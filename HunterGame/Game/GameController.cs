@@ -73,7 +73,7 @@ namespace HunterGame
             {
                 player.shoot();
                 
-                for (int i = enemiesOnScreen.Count - 1; i > 0; i--)
+                for (int i = enemiesOnScreen.Count - 1; i >= 0; i--)
                 {
 
                     if (rect.Contains(enemiesVector[i]) && !enemyShot)
@@ -120,31 +120,37 @@ namespace HunterGame
 
         }
 
-      
-
+        /// <summary>
+        /// method to add enemy 
+        /// </summary>
         public void spawnEnemy()
         {
             
             if(enemiesOnScreen.Count< maxEnemies)
-            {
+            {   
+                //spawn enemy 
                 EnemySubclass enemy = spawner.spawnEnemy(diffContext.getState());
                 int[] Start = enemy.getStartPos();
+                //create vector for the enemy's start destination
                 Vector2 CurrentEnemyVector = new Vector2(Start[0], Start[1]);  
-                    
+                //create destination for the enemy
                 enemy.Destination = createDestination(Start[0],Start[1]);
                     
+                //add enemy position to enemies vector list 
                     enemiesVector.Add(CurrentEnemyVector);
+                //add enemy to enemy list
                     enemiesOnScreen.Add(enemy);
                    
             }
             
         }
+
         public void updateEnemies()
         {
             
              //logic for updating enemies. loop through and set values for each
 
-            for(int i = enemiesOnScreen.Count - 1; i > 0; i--)
+            for(int i = enemiesOnScreen.Count - 1; i >= 0; i--)
             {
                 
                 bool remove = false;
@@ -161,10 +167,12 @@ namespace HunterGame
                 //check if the enemy is near the boundary
                 if (Math.Abs(start.X- dest.X) < 5 && Math.Abs(start.Y - dest.Y) < 5)
                 {
+                    //check if enemy is at the edge
                     if (enemiesOnScreen[i].getLocationCount() < enemiesOnScreen[i].ScreenPoints)
                     {
                         //reset for a new destination
                         enemiesOnScreen[i].Destination = createDestination(dest.X, dest.Y);
+                        //increment location count
                         enemiesOnScreen[i].incrementLocCount();
 
                     }
@@ -262,31 +270,27 @@ namespace HunterGame
             return dest;
             
         }
-
         
+        /// <summary>
+        /// Method to reset variables for a new game
+        /// </summary>
         public void startNewGame()
         {
-            //game controller will keep track of
-            //player, enemies, score, items.
+            
             player.newGame(3);
-            //diffContext = new DifficultyContext(player.PlayerScore);
-            //player.PlayerScore.register(diffContext);
-            //spawner = new SpawnerProto(windowHeight, windowWidth);
-
+            
+            //clear enemies vector list and enemy list
             enemiesVector.Clear();
             enemiesOnScreen.Clear();
 
+            //clear notification string
             notification = "";
 
+            //reinstantiate itemManager
             items = new ItemManager();
             itemAppeared = false;
 
             elapsedTime = 0;
-        }
-
-        public void quitGame()
-        {
-           
         }
 
         public Vector2 updateItem()
@@ -294,7 +298,6 @@ namespace HunterGame
             items.changePosition();
             return items.getPosition();
         }
-
          
         public String spawnItem()
         {
@@ -303,6 +306,11 @@ namespace HunterGame
             return items.getImage();
             
         }
+        
+        /// <summary>
+        /// check if lives is greater than 0 (return true if >0, false otherwise)
+        /// </summary>
+        /// <returns></returns>
         public Boolean checkLives()
         {
             return (player.lives>0);

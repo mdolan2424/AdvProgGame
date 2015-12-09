@@ -139,7 +139,7 @@ namespace HunterGame
             pauseKeyDown = false;
             gameMenuUp = true;
 
-
+            //initialize the vectors for things written on the screen
             scoreVector = new Vector2(width - 150, height - 40);
             livesVector = new Vector2(width - 300, height - 40);
             scoreVector = new Vector2(width - 450, height - 40);
@@ -233,8 +233,10 @@ namespace HunterGame
             //paused = checkPauseKey(currentKeyboardState);
             checkPauseKey(currentKeyboardState);
 
+            //check if the main menu should be displayed
             if(gameMenuUp)
-            {
+            {   
+                //check if click clicks on "button"
                 if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
                 {
 
@@ -242,7 +244,7 @@ namespace HunterGame
                     //check if an object was shot
 
                     if (startGameRect.Contains(mousePosition))
-                    {
+                    {                         
                         controller.startNewGame();
                         EnemyVectors.Clear();
                         gameMenuUp = false;
@@ -261,32 +263,33 @@ namespace HunterGame
                 base.Update(gameTime);
 
             }
+                //check if user still has lives
             else if(controller.checkLives())
             {
-                
+                //update spawn times
                 enemySpawnTime += gameTime.ElapsedGameTime.TotalSeconds;
                 itemSpawnTime += gameTime.ElapsedGameTime.TotalSeconds;
 
-           
-                controller.updateEnemies();
-                EnemyVectors = controller.EnemiesVector;
-
-                enemySpawnTime += gameTime.ElapsedGameTime.TotalSeconds;
-                if (enemySpawnTime > 2)
+                
+                //spawn enemies every 2 seconds
+                if (enemySpawnTime > 1)
                 {
                     controller.spawnEnemy();
                     enemySpawnTime = 0;
                 }
 
+                //update enemies
                 controller.updateEnemies();
                 EnemyVectors = controller.EnemiesVector;
 
+                //spawn items every 30 seconds
                 if (itemSpawnTime > 30)
                 {
                     String imageLocation = controller.spawnItem();
                     itemImage = Content.Load<Texture2D>(imageLocation);
                     itemSpawnTime = 0;
                 }
+
                 controller.updatePlayer();
                 //check if mouse click
                 if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
@@ -305,13 +308,13 @@ namespace HunterGame
                 
             }
             else
-            {
+            {   //check for mouse click
                 if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
                 {
 
                     Point mousePosition = new Point(currentMouseState.X, currentMouseState.Y);
-                    //check if an object was shot
-
+                    
+                    //check if button was clicked
                     if (restartRect.Contains(mousePosition))
                     {
                         controller.startNewGame();
@@ -340,15 +343,13 @@ namespace HunterGame
             //draw the background first
             spriteBatch.Draw(Background, new Rectangle(0, 0, Background.Width + 200, Background.Height), Color.White);
 
-            // At the top of your class:
-            Texture2D pixel;
-
-            // Somewhere in your LoadContent() method:
-            pixel = new Texture2D(graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
-            pixel.SetData(new[] { Color.Black }); // so that we can draw whatever color we want on top of it
+             // create pixel for drawing borders (not currently using them)
+            //Texture2D pixel;           
+            //pixel = new Texture2D(graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            //pixel.SetData(new[] { Color.Black }); // so that we can draw whatever color we want on top of it
             
             if (gameMenuUp)
-            {
+            {   //draw start menu
                 spriteBatch.DrawString(MenuFont, "Hunter", titleVector, Color.Black);
                 spriteBatch.DrawString(MenuFont, "Start Game", newGameVector, Color.Black);
               //  DrawBorder(pixel, startGameRect, 2, Color.Black);
@@ -370,7 +371,7 @@ namespace HunterGame
                 }
 
                 //draw our enemies
-                for (int i = EnemyVectors.Count - 1; i > 0; i--)
+                for (int i = EnemyVectors.Count - 1; i >= 0; i--)
                 {
 
                     //Centers appearance of enemy on draw point so collision can be compared regardless of size of image
@@ -379,15 +380,12 @@ namespace HunterGame
                     spriteBatch.Draw(EnemyImage, centered);
 
                 }
-
-
-                
-
                 
                 base.Draw(gameTime);
             }
             else
             { 
+                //draw game over menu
                 spriteBatch.DrawString(MenuFont, "Game Over", gameOverVector, Color.Black);
                 spriteBatch.DrawString(MenuFont, "Play Again", newGameVector, Color.Black);
                 //DrawBorder(pixel, restartRect, 2, Color.Black);
@@ -397,6 +395,7 @@ namespace HunterGame
 
 
             }
+            //draw score, lives, ammo, and player state notification
             spriteBatch.DrawString(font, "Score: " + controller.getScore(), scoreVector, Color.Black);
             spriteBatch.DrawString(font, "Lives: " + controller.getLives(), livesVector, Color.Black);
 
@@ -410,6 +409,7 @@ namespace HunterGame
                
                 spriteBatch.DrawString(MenuFont, pause, pauseVector, Color.Black);
             }
+            //draw crosshair last so it is on top of everything
             spriteBatch.Draw(crosshair, cursor);
             spriteBatch.End();
 
@@ -444,7 +444,6 @@ namespace HunterGame
         }
         
         //performs actions when game is activated
-
         protected override void OnActivated(object sender, EventArgs args)
         {
 

@@ -9,8 +9,9 @@ namespace HunterGame
     {
         public EasyState()
         {
+            //set attributes for easy state
             enemyScreenPts = 3;
-            enemySpeed = 1;
+            enemySpeed = 2f;
             maxEnemies = 3;
             enemyKillWorth = 5;
         }
