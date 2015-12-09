@@ -12,16 +12,12 @@ namespace HunterGame.Game.Players
         //player
         public string name { get; set; }
         public int lives { get; set; }
-        public int stunShots { get; set; }
+        
         
         //weapon
         public int ammo { get; set; }
-        public int reloadTime { get; set; }
-
-        public int damage { get; set; }
-        public int gunCooldown { get; set; }
-
-
+       
+        
         private int maxAmmo;
         private int maxReloadTime;
 
@@ -41,7 +37,7 @@ namespace HunterGame.Game.Players
             //defaults
             name = "";
             this.lives = lives;
-            this.damage = 1;
+            
             score = new Score();
             
             
@@ -72,7 +68,7 @@ namespace HunterGame.Game.Players
         public void shoot()
         {
             this.ammo -= 1;
-            this.gunCooldown = 1;
+            
             if (this.ammo <= 0)
             {
                 reload();
@@ -88,6 +84,7 @@ namespace HunterGame.Game.Players
             
         }
 
+        //if player is stunned.
         public void stun(int stunTime)
         {
            
@@ -95,15 +92,19 @@ namespace HunterGame.Game.Players
                 shootTimer.set(time, stunTime);
             
         }
+        //attempt to change the time it takes to reload
         public void powerUp(int amount)
         {
             this.maxReloadTime = amount;
         }
         
+        //permanently increase max ammo after reload.
         public void increaseMaxAmmo(int amount)
         {
             this.maxAmmo += amount;
         }
+
+
         public Boolean canShoot()
         {
                      
@@ -115,6 +116,8 @@ namespace HunterGame.Game.Players
         {
             return PlayerState.getState().ToString();
         }
+
+
         public void  newGame(int lives)
         {
             score.resetScore();
@@ -128,7 +131,7 @@ namespace HunterGame.Game.Players
             maxReloadTime = 3;
         }
         
-
+        //will change the player back to normal firing state after a set amount of time.
         public void update(double time)
         {
             this.time = time;

@@ -15,7 +15,7 @@ namespace HunterGame.Game.Players
         public override string ToString()
         {
 
-            return "You are reloading!!";
+            return "Reloading";
         }
     }
 }

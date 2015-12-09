@@ -11,7 +11,7 @@ namespace HunterGame.Game.Items
         
         public ItemFactory()
         {
-
+            
         }
 
         public IItem getItem(int item)
@@ -33,7 +33,7 @@ namespace HunterGame.Game.Items
             }
             else if (item == 4)
             {
-                Console.Write("bad item");
+                
                 return new BadPowerUp();
             }
             

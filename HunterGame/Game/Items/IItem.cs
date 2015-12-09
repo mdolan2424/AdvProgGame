@@ -14,7 +14,7 @@ namespace HunterGame.Game.Items
         string image { get; }
 
 
-        //player attempts to apply item attributes to themself.
+        //player attempts to apply item abilities to themself. Items can have one, zero, or many abilities
         int increaseLives();
         int weaponUpgrade();
         int powerUp();

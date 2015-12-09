@@ -57,11 +57,13 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="PlayerTest.cs" />
     <Compile Include="PrototypeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ObserverTest.cs" />
     <Compile Include="DifficultyStateTest.cs" />
     <Compile Include="ScoreTest.cs" />
+    <Compile Include="TimerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HunterGame\HunterGame.csproj">

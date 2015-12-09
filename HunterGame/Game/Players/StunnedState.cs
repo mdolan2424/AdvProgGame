@@ -17,7 +17,7 @@ namespace HunterGame.Game.Players
         public override string ToString()
         {
 
-            return "You are stunned!!";
+            return "Stunned";
         }
 
         
