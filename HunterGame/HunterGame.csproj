@@ -55,7 +55,6 @@
     <Compile Include="Game\Players\FiringState.cs" />
     <Compile Include="Game\Players\Player.cs" />
     <Compile Include="Game\Driver.cs" />
-    <Compile Include="Game\InputManager.cs" />
     <Compile Include="Game\HardState.cs" />
     <Compile Include="Game\MediumState.cs" />
     <Compile Include="Game\Observable.cs" />

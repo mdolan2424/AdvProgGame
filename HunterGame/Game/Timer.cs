@@ -20,10 +20,12 @@ namespace HunterGame.Game
 
         }
 
+        
         public Boolean getActivation()
         {
             return isActive;
         }
+        //starts the timer
         public void set(double gametime, int seconds)
         {
             this.isActive = true;
