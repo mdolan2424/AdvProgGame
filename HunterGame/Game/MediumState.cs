@@ -7,6 +7,7 @@ namespace HunterGame
 {
     public class MediumState:DifficultyState
     {
+        //set the attributes for medium state
         public MediumState()
         {
             enemyScreenPts = 2;

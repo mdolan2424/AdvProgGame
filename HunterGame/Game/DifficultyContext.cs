@@ -5,6 +5,10 @@ using System.Text;
 
 namespace HunterGame
 {
+    /// <summary>
+    /// Difficulty context to store the difficulty state, observe the score for change
+    /// and update the dificulty state accordingly
+    /// </summary>
     public class DifficultyContext: Observer
     {
 
@@ -38,6 +42,7 @@ namespace HunterGame
         /// </summary>
         public override void update()
         {
+            //check if the thresholds have been reached and change state if they have
             if(((Score)subject).ScoreVal>hardThreshold)
             {
                 diffState = new HardState();
