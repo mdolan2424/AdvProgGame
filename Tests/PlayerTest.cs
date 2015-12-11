@@ -59,11 +59,14 @@ namespace Tests
         #endregion
 
         [TestMethod]
-        public void TestMethod1()
+        public void useLifeItem()
         {
-            //
-            // TODO: Add test logic here
-            //
+            
+        }
+
+        public void usePowerUpItem()
+        {
+
         }
     }
 }
